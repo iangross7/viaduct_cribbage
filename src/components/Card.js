@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ReactComponent as TestCard} from '../assets/koc.svg'
+import { ReactComponent as TestCard} from '../assets/deckofcards/10c.svg'
 
 import "./Card.css"
 
