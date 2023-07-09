@@ -7,6 +7,8 @@ export default function Hand() {
         <div className='hand-container'>
             <Card />
             <Card />
+            <Card />
+            <Card />
         </div>
     );
 }
