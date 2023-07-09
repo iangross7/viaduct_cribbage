@@ -1,9 +1,13 @@
-import './App.css';
 import Card from "./components/Card.js"
+
+import './App.css';
 
 function App() {
   return (
+    <>
     <Card />
+    <Card />
+    </>
   ); 
 }
 
