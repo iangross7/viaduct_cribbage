@@ -7,7 +7,7 @@ export default function Card() {
     return (
         <div className='card-wrapper'>
           <motion.div drag dragSnapToOrigin="true">
-            <TestCard />
+            <TestCard style={{transform: 'scale(0.5)'}} /> //TODO: Make Hitbox Smoother
           </motion.div>
         </div>
       );
