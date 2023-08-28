@@ -1,0 +1,9 @@
+body {
+    width: 99vw; /*gonna need to fix these dimensions, only did it weird for peace of mind*/
+    height: 97vh;
+    background-color:lightpink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
