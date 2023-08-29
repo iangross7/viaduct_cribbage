@@ -20,6 +20,15 @@ body {
   width: 50%
 }
 
+.drop-zone {
+  width: 30%;
+  height: 20%;
+  background-color: black;
+  position: absolute;
+  top: 40%;
+  left: 34.6%
+}
+
 .cut-container {
   background-color: black;
   position: absolute;

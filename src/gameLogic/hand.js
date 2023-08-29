@@ -1,7 +1,9 @@
+import Card from "./card.js";
+
 export default class Hand {
-    constructor() {
-        this.cards = [];
-        this.numCards = 0;
+    constructor({ cards = [], numCards = 0 } = {}) {
+        this.cards = cards.map(card => new Card(card.id, card.suit, card.symbol));
+        this.numCards = numCards;
     }
 
     addCard(card) {
@@ -10,9 +12,7 @@ export default class Hand {
     }
 
     removeCard(cardID) {
-        console.log(cardID);
         var index = this.cards.map(e => e.id).indexOf(cardID);
-        console.log(index);
         if (index > -1) {
             this.cards.splice(index, 1);
             this.numCards--;

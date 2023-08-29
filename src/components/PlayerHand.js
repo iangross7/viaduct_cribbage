@@ -13,6 +13,8 @@ export default function Hand(props) {
                     cardID={card.id}
                     cardDisplay={card.id}
 
+                    onCardPlayed={props.onCardPlayed}
+                    dropZone={props.dropZone}
                     canMove = 'true'
                 />
             ))}

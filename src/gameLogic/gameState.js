@@ -2,21 +2,27 @@ import Deck from './deck.js';
 import Hand from './hand.js';
 
 export default class GameState {
-    constructor() {
-        this.deck = new Deck();
+    constructor({deck = new Deck(), playerHand = new Hand(), aiHand = new Hand(), 
+        playerScore = 0, aiScore = 0, cribPlayer = 0, notStarted = true} = {}) {
 
-        this.playerHand = new Hand();
-        this.aiHand = new Hand();
+        this.deck = deck;
 
-        this.playerScore = 0;
-        this.aiScore = 0;
-        this.cribPlayer = 0; // 0 for user, 1 for ai's crib
-        this.startGame();
+        this.playerHand = playerHand;
+        this.aiHand = aiHand;
+
+        this.playerScore = playerScore;
+        this.aiScore = aiScore;
+        this.cribPlayer = cribPlayer; // 0 for user, 1 for ai's crib
+
+        this.notStarted = notStarted;
+
+        if (this.notStarted) this.startGame();
     }
 
     startGame() {
         this.playerScore = 0;
         this.aiScore = 0;
+        this.notStarted = false;
         this.newDeal(this.cribPlayer);
     }
 
