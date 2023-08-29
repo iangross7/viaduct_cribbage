@@ -53,10 +53,22 @@ const IDS = [
     'D10'
 ];
 
+export default class Deck {
+    constructor(cards = createDeck()) {
+        this.cards = cards;
+    }
+}
+
 class Card {
     constructor(id, suit, value) {
         this.id = id;
         this.suit = suit;
         this.value = value;
     }
+}
+
+function createDeck() {
+    return IDS.map(id => {
+        return new Card(id, id.charAt(0), id.substring(1))
+    })
 }
