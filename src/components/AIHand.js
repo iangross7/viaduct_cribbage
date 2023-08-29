@@ -1,18 +1,19 @@
 import MoveableCard from './MoveableCard.js'
 
-import './Hand.css'
+import './AIHand.css'
 
 export default function Hand(props) {
-    const playerHand = props.gameState.playerHand.cards;
+    const aiHand = props.gameState.aiHand.cards;
 
     return (
-        <div className='hand-container'>
-            { playerHand.map((card, index) => (
+        <div className='ai-hand-container'>
+            { aiHand.map((card, index) => (
                 <MoveableCard
                     key={index}
                     cardID={card.id}
+                    cardDisplay={card.id}
 
-                    canMove = 'true'
+                    canMove = 'false'
                 />
             ))}
         </div>

@@ -1,6 +1,8 @@
-import Hand from "./components/Hand.js"
 import { useState } from 'react';
+import PlayerHand from "./components/PlayerHand.js"
+import AiHand from "./components/AIHand.js";
 import GameState from "./gameLogic/gameState.js";
+
 
 import './App.css';
 
@@ -11,9 +13,12 @@ function App() {
   console.log(gameState.aiHand.cards);
 
   return (
-    <>
-    <Hand gameState = {gameState}/>
-    </>
+    <div className='app-container'>
+      <div className='hand-container'>
+        <AiHand gameState = {gameState}/>
+        <PlayerHand gameState = {gameState}/>
+      </div>
+    </div>
   ); 
 }
 

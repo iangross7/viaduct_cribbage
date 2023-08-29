@@ -1,4 +1,4 @@
-export default class PlayerHand {
+export default class Hand {
     constructor() {
         this.cards = [];
         this.numCards = 0;

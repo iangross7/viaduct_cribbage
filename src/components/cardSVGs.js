@@ -54,6 +54,8 @@ import { ReactComponent as DQ } from '../assets/deckofcards/qd.svg';
 import { ReactComponent as DK } from '../assets/deckofcards/kd.svg';
 import { ReactComponent as DA } from '../assets/deckofcards/ad.svg';
 
+import { ReactComponent as Back } from '../assets/deckofcards/cardback.svg';
+
 const cardSVGs = {
     'C2': C2,
     'C3': C3,
@@ -106,7 +108,8 @@ const cardSVGs = {
     'DJ': DJ,
     'DQ': DQ,
     'DK': DK,
-    'DA': DA
+    'DA': DA,
+    'Back': Back
 }
 
 export default cardSVGs;

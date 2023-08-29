@@ -1,8 +1,18 @@
 body {
-    background-color:lightpink;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden; /*Rigid body to better space items.*/
-  }
+  background-color:lightpink;
+  margin: 0;
+  overflow: hidden;
+  /*Rigid body to better space items.*/
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hand-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

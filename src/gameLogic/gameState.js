@@ -1,13 +1,12 @@
 import Deck from './deck.js';
-import PlayerHand from './playerHand.js';
-import AiHand from './aiHand.js';
+import Hand from './hand.js';
 
 export default class GameState {
     constructor() {
         this.deck = new Deck();
 
-        this.playerHand = new PlayerHand();
-        this.aiHand = new AiHand();
+        this.playerHand = new Hand();
+        this.aiHand = new Hand();
 
         this.playerScore = 0;
         this.aiScore = 0;

@@ -1,8 +1,8 @@
-.hand-container {
+.player-hand-container {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    height: 100vh;
+    height: 50vh;
     width: 50vw;
-    margin-top: 9vh;
+    margin-top: 16.5vh;
 }
