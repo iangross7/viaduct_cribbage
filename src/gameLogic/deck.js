@@ -1,3 +1,5 @@
+import Card from './card.js';
+
 const IDS = [
     'C2',
     'C3',
@@ -56,33 +58,20 @@ const IDS = [
 export default class Deck {
     constructor(cards = createDeck()) {
         this.cards = cards;
-        this.cardsDealt = 0;
     }
 
     shuffle() {
-        for (let i = this.cards.length - 1; i >0; i--) {
+        this.cards = createDeck();
+        for (let i = this.cards.length - 1; i > 0; i--) {
             var newIndex = Math.floor(Math.random() * i);
             var oldCard = this.cards[newIndex];
             this.cards[newIndex] = this.cards[i];
             this.cards[i] = oldCard;
         }
-        this.cardsDealt = 0;
     }
 
     dealCard() {
-        this.cardsDealt++;
-        return this.cards[this.cardsDealt - 1];
-    }
-}
-
-class Card {
-    constructor(id, suit, value) {
-        this.id = id;
-        this.suit = suit;
-        this.symbol = value;
-        if (value == "J" || value == "Q" || value == "K") this.value = 10;
-        else if (value =="A") this.value = 1;
-        else this.value = Number(value);
+        return this.cards.pop();
     }
 }
 

@@ -5,8 +5,9 @@ import './App.css';
 
 function App() {
   const gameState = new GameState();
-  gameState.deck.dealCard();
-  console.log(gameState.deck.cardsDealt);
+  console.log(gameState.deck.dealCard());
+  gameState.deck.shuffle();
+  console.log(gameState.deck);
 
   return (
     <>
