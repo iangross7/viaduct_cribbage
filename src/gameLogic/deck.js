@@ -56,6 +56,7 @@ const IDS = [
 export default class Deck {
     constructor(cards = createDeck()) {
         this.cards = cards;
+        this.cardsDealt = 0;
     }
 
     shuffle() {
@@ -65,6 +66,12 @@ export default class Deck {
             this.cards[newIndex] = this.cards[i];
             this.cards[i] = oldCard;
         }
+        this.cardsDealt = 0;
+    }
+
+    dealCard() {
+        this.cardsDealt++;
+        return this.cards[this.cardsDealt - 1];
     }
 }
 

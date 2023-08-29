@@ -1,10 +1,12 @@
 import Hand from "./components/Hand.js"
-import Deck from './gameLogic/deck.js'
+import GameState from "./gameLogic/gameState.js";
 
 import './App.css';
 
 function App() {
-  const deck = new Deck();
+  const gameState = new GameState();
+  gameState.deck.dealCard();
+  console.log(gameState.deck.cardsDealt);
 
   return (
     <>
