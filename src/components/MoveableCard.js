@@ -11,10 +11,8 @@ export default function MoveableCard(props) {
   const CardSVG = cardSVGs[cardID] || null;
 
   return (
-    <div className='card-wrapper'>
-      <motion.div drag={canMove} dragSnapToOrigin="true" style = {{scale: 0.5}}>
+      <motion.div className='card-wrapper' drag={canMove} dragSnapToOrigin="true" style = {{scale: 0.5}}>
         {CardSVG && <CardSVG />}
       </motion.div>
-    </div>
     );
 }
