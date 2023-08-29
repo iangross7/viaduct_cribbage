@@ -20,11 +20,29 @@ body {
   width: 50%
 }
 
-.play-zone {
-  width: 30%;
-  height: 20%;
+.cut-container {
   background-color: black;
   position: absolute;
-  top: 40%;
-  left: 35%
+  width: 10%;
+  height: 25%;
+  top: 39%;
+  left: 6.5%;
+}
+
+.player-score-container {
+  background-color: black;
+  position: absolute;
+  width: 18%;
+  height: 15%;
+  top: 6%;
+  left: 3%
+}
+
+.ai-score-container {
+  background-color: black;
+  position: absolute;
+  width: 18%;
+  height: 15%;
+  top: 6%;
+  left: 79%
 }
