@@ -18,6 +18,9 @@ function App() {
         <AiHand gameState = {gameState}/>
         <PlayerHand gameState = {gameState}/>
       </div>
+      <div className='play-zone'>
+        
+      </div>
     </div>
   ); 
 }

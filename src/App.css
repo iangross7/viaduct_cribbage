@@ -2,6 +2,8 @@ body {
   background-color:lightpink;
   margin: 0;
   overflow: hidden;
+  height: 100vh;
+  width: 100vw;
   /*Rigid body to better space items.*/
 }
 
@@ -15,4 +17,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 50%
+}
+
+.play-zone {
+  width: 30%;
+  height: 20%;
+  background-color: black;
+  position: absolute;
+  top: 40%;
+  left: 35%
 }

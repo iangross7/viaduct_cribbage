@@ -3,8 +3,8 @@ export default class Card {
         this.id = id;
         this.suit = suit;
         this.symbol = value;
-        if (value == "J" || value == "Q" || value == "K") this.value = 10;
-        else if (value =="A") this.value = 1;
+        if (value === "J" || value === "Q" || value === "K") this.value = 10;
+        else if (value ==="A") this.value = 1;
         else this.value = Number(value);
     }
 }

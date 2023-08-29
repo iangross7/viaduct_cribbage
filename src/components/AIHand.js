@@ -11,7 +11,7 @@ export default function Hand(props) {
                 <MoveableCard
                     key={index}
                     cardID={card.id}
-                    cardDisplay={card.id}
+                    cardDisplay={'Back'}
 
                     canMove = 'false'
                 />

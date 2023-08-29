@@ -22,14 +22,14 @@ export default class GameState {
 
     newDeal(cribPlayer) {
         this.deck.shuffle();
-        if (cribPlayer == 0) {
-            for (var i = 0; i < 6; i++) {
+        if (cribPlayer === 0) {
+            for (let i = 0; i < 6; i++) {
                 this.aiHand.addCard(this.deck.dealCard());
                 this.playerHand.addCard(this.deck.dealCard());
             }
         }
         else {
-            for (var i = 0; i < 6; i++) {
+            for (let i = 0; i < 6; i++) {
                 this.playerHand.addCard(this.deck.dealCard());
                 this.aiHand.addCard(this.deck.dealCard());
             }
