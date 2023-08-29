@@ -57,13 +57,25 @@ export default class Deck {
     constructor(cards = createDeck()) {
         this.cards = cards;
     }
+
+    shuffle() {
+        for (let i = this.cards.length - 1; i >0; i--) {
+            var newIndex = Math.floor(Math.random() * i);
+            var oldCard = this.cards[newIndex];
+            this.cards[newIndex] = this.cards[i];
+            this.cards[i] = oldCard;
+        }
+    }
 }
 
 class Card {
     constructor(id, suit, value) {
         this.id = id;
         this.suit = suit;
-        this.value = value;
+        this.symbol = value;
+        if (value == "J" || value == "Q" || value == "K") this.value = 10;
+        else if (value =="A") this.value = 1;
+        else this.value = Number(value);
     }
 }
 

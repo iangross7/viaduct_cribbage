@@ -5,7 +5,6 @@ import './App.css';
 
 function App() {
   const deck = new Deck();
-  console.log(deck.cards);
 
   return (
     <>
