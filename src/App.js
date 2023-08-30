@@ -2,8 +2,6 @@ import { useState, useRef } from 'react';
 import PlayerHand from "./components/PlayerHand.js"
 import AiHand from "./components/AIHand.js";
 import GameState from "./gameLogic/gameState.js";
-import Hand from './gameLogic/hand.js';
-
 
 import './App.css';
 

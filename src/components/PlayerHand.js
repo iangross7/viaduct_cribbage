@@ -7,9 +7,9 @@ export default function Hand(props) {
 
     return (
         <div className='player-hand-container'>
-            { playerHand.map((card, index) => (
+            { playerHand.map((card) => (
                 <MoveableCard
-                    key={index}
+                    key={card.id}
                     cardID={card.id}
                     cardDisplay={card.id}
 
