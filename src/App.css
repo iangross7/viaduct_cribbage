@@ -1,5 +1,5 @@
 body {
-  background-color:lightpink;
+  background-color: #388f36;
   margin: 0;
   overflow: hidden;
   height: 100vh;
@@ -23,14 +23,14 @@ body {
 .drop-zone {
   width: 30%;
   height: 20%;
-  background-color: black;
+  background-color: #494b4d;
   position: absolute;
   top: 40%;
   left: 34.6%
 }
 
 .cut-container {
-  background-color: black;
+  background-color: #494b4d;
   position: absolute;
   width: 10%;
   height: 25%;
@@ -38,8 +38,8 @@ body {
   left: 6.5%;
 }
 
-.player-score-container {
-  background-color: black;
+.human-score-container {
+  background-color: #494b4d;
   position: absolute;
   width: 18%;
   height: 15%;
@@ -48,7 +48,7 @@ body {
 }
 
 .ai-score-container {
-  background-color: black;
+  background-color: #494b4d;
   position: absolute;
   width: 18%;
   height: 15%;

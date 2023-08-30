@@ -11,11 +11,16 @@ export default class Hand {
         this.numCards++;
     }
 
+    // Returns card object that was removed
     removeCard(cardID) {
         var index = this.cards.map(e => e.id).indexOf(cardID);
         if (index > -1) {
+            var card = this.cards[index];
+
             this.cards.splice(index, 1);
             this.numCards--;
+
+            return card;
         }
     }
 }

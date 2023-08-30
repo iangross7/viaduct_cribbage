@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
-import PlayerHand from "./components/PlayerHand.js"
+import HumanHand from "./components/HumanHand.js"
 import AiHand from "./components/AIHand.js";
+import ScoreBoard from "./components/ScoreBoard.js"
+
 import GameState from "./gameLogic/gameState.js";
 
 import './App.css';
@@ -10,27 +12,31 @@ function App() {
   const dropZoneRef = useRef(null);
 
   // Handling when a player plays a card
-  const handleCardPlayedPlayer = (cardID) => {
+  const handleCardPlayedHuman = (cardID) => {
     const updatedGameState = new GameState({...gameState});
-    updatedGameState.playerHand.removeCard(cardID);
-    console.log(updatedGameState.playerHand.cards);
+    updatedGameState.humanCribCard(cardID);
     setGameState(updatedGameState);
+    console.log(updatedGameState.cribHand);
   }
 
   return (
     <div className='app-container'>
       <div className='hand-container'>
         <AiHand gameState={gameState}/>
-        <PlayerHand 
+        <HumanHand 
           gameState={gameState} 
-          onCardPlayed={handleCardPlayedPlayer}
+          onCardPlayed={handleCardPlayedHuman}
           dropZone={dropZoneRef}
         />
       </div>
       <div className='drop-zone' ref={dropZoneRef}></div>
       <div className='cut-container'></div>
-      <div className='player-score-container'></div>
-      <div className='ai-score-container'></div>
+      <div className='human-score-container'>
+        <ScoreBoard player='Player' score={gameState.playerScore}/>
+      </div>
+      <div className='ai-score-container'>
+        <ScoreBoard player='AI' score={gameState.aiScore}/>
+      </div>
     </div>
   ); 
 }

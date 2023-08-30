@@ -2,7 +2,7 @@ import MoveableCard from './MoveableCard.js'
 
 import './AIHand.css'
 
-export default function Hand(props) {
+export default function AIHand(props) {
     const aiHand = props.gameState.aiHand.cards;
 
     return (

@@ -4,6 +4,7 @@ import Hand from './hand.js';
 export default class GameState {
     static START = "start";
     static CRIBBING = "cribbing";
+    static PEGGING = "pegging";
 
     constructor({deck = new Deck(), playerHand = new Hand(), aiHand = new Hand(), cribHand = new Hand(),
         playerScore = 0, aiScore = 0, cribPlayer = 0, currentState = GameState.START} = {}) {
@@ -43,6 +44,12 @@ export default class GameState {
                 this.playerHand.addCard(this.deck.dealCard());
                 this.aiHand.addCard(this.deck.dealCard());
             }
+        }
+    }
+
+    humanCribCard(cardID) {
+        if (this.currentState === GameState.CRIBBING) {
+            this.cribHand.addCard(this.playerHand.removeCard(cardID));
         }
     }
 }

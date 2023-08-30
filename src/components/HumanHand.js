@@ -1,12 +1,12 @@
 import MoveableCard from './MoveableCard.js'
 
-import './PlayerHand.css'
+import './HumanHand.css'
 
-export default function Hand(props) {
+export default function HumanHand(props) {
     const playerHand = props.gameState.playerHand.cards;
 
     return (
-        <div className='player-hand-container'>
+        <div className='human-hand-container'>
             { playerHand.map((card) => (
                 <MoveableCard
                     key={card.id}
