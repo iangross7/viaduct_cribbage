@@ -1,5 +1,7 @@
 import Deck from './deck.js';
 import Hand from './hand.js';
+import Bot from './bot.js';
+import Score from './score.js';
 
 export default class GameState {
     static START = "start";
@@ -47,9 +49,16 @@ export default class GameState {
         }
     }
 
-    humanCribCard(cardID) {
+    // TODO bot card in crib
+    humanPlayCard(cardID) {
         if (this.currentState === GameState.CRIBBING) {
-            this.cribHand.addCard(this.playerHand.removeCard(cardID));
+            if (this.cribHand.cards.length < 2) this.cribHand.addCard(this.playerHand.removeCard(cardID));
+            if (this.cribHand.cards.length === 2) {
+                const discardCards = Bot.botCribDiscard(this.aiHand);
+                discardCards.forEach(element => {
+                    this.aiHand.removeCard(element);
+                });
+            }
         }
     }
 }

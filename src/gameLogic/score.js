@@ -1,7 +1,18 @@
-class Score {
-    // use for four cards
+// TODO: add knobs
+
+export default class Score {
+    // use for four or five cards
     static handScore(hand) {
         let points = 0;
+
+        const handVals = hand.cards.map(c => c.value);
+        const handSuits = hand.cards.map(c => c.suit);
+        const handOrder = hand.cards.map(c => c.order);
+
+        points += this.calculateFifteenPoints(handVals);
+        points += this.calculatePairPoints(handOrder);
+        points += this.calculateRunPoints(handOrder);
+        points += this.calculateSuitPoints(handSuits);
 
         return points;
     }
@@ -85,8 +96,8 @@ class Score {
         return 0;
     }
 
-    static calculatePairPoints(handVals) {
-        const sortedHand = [...handVals].sort();
+    static calculatePairPoints(handOrder) {
+        const sortedHand = [...handOrder].sort();
         let pairPoints = 0;
 
         for (let i = 0; i < sortedHand.length - 1; i++) {

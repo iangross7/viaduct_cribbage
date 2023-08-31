@@ -14,9 +14,8 @@ function App() {
   // Handling when a player plays a card
   const handleCardPlayedHuman = (cardID) => {
     const updatedGameState = new GameState({...gameState});
-    updatedGameState.humanCribCard(cardID);
+    updatedGameState.humanPlayCard(cardID);
     setGameState(updatedGameState);
-    console.log(updatedGameState.cribHand);
   }
 
   return (
