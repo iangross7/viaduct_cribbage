@@ -30,12 +30,12 @@ body {
 }
 
 .cut-container {
-  background-color: #494b4d;
+  /* background-color: #494b4d; */
   position: absolute;
   width: 10%;
   height: 25%;
-  top: 39%;
-  left: 6.5%;
+  top: 27%;
+  left: 5%;
 }
 
 .human-score-container {

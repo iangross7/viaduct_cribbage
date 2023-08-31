@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react';
+
 import HumanHand from "./components/HumanHand.js"
 import AiHand from "./components/AIHand.js";
+
+import CutCard from './components/CutCard.js';
 import ScoreBoard from "./components/ScoreBoard.js"
 
 import GameState from "./gameLogic/gameState.js";
@@ -29,7 +32,9 @@ function App() {
         />
       </div>
       <div className='drop-zone' ref={dropZoneRef}></div>
-      <div className='cut-container'></div>
+      <div className='cut-container'>
+        <CutCard />
+      </div>
       <div className='human-score-container'>
         <ScoreBoard player='Player' score={gameState.playerScore}/>
       </div>
