@@ -3,7 +3,7 @@ import MoveableCard from './MoveableCard.js'
 import './HumanHand.css'
 
 export default function HumanHand(props) {
-    const playerHand = props.gameState.playerHand.cards;
+    const playerHand = props.gameState.humanHand.cards;
 
     return (
         <div className='human-hand-container'>
