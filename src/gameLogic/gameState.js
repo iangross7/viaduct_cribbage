@@ -56,8 +56,9 @@ export default class GameState {
             if (this.cribHand.cards.length === 2) {
                 const discardCards = Bot.botCribDiscard(this.aiHand);
                 discardCards.forEach(element => {
-                    this.aiHand.removeCard(element);
+                    this.cribHand.addCard(this.aiHand.removeCard(element));
                 });
+                this.currentState = GameState.PEGGING;
             }
         }
     }
