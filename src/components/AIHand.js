@@ -7,9 +7,9 @@ export default function AIHand(props) {
 
     return (
         <div className='ai-hand-container'>
-            { aiHand.map((card, index) => (
+            { aiHand.map((card) => (
                 <MoveableCard
-                    key={index}
+                    key={card.id}
                     cardID={card.id}
                     cardDisplay={'Back'}
 

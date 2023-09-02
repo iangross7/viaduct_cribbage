@@ -33,7 +33,7 @@ function App() {
       </div>
       <div className='drop-zone' ref={dropZoneRef}></div>
       <div className='cut-container'>
-        <CutCard />
+        <CutCard gameState={gameState}/>
       </div>
       <div className='human-score-container'>
         <ScoreBoard player='Player' score={gameState.playerScore}/>

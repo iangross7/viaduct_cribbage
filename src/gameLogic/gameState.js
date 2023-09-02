@@ -1,3 +1,4 @@
+import Card from './card.js'
 import Deck from './deck.js';
 import Hand from './hand.js';
 import Bot from './bot.js';
@@ -8,7 +9,7 @@ export default class GameState {
     static CRIBBING = "cribbing";
     static PEGGING = "pegging";
 
-    constructor({deck = new Deck(), humanHand = new Hand(), aiHand = new Hand(), cribHand = new Hand(),
+    constructor({deck = new Deck(), humanHand = new Hand(), aiHand = new Hand(), cribHand = new Hand(), cutCard = new Card('Back', 'S', 0),
         playerScore = 0, aiScore = 0, cribPlayer = 0, currentState = GameState.START} = {}) {
 
         this.deck = deck;
@@ -16,6 +17,8 @@ export default class GameState {
         this.humanHand = humanHand;
         this.aiHand = aiHand;
         this.cribHand = cribHand;
+
+        this.cutCard = cutCard;
 
         this.playerScore = playerScore;
         this.aiScore = aiScore;
@@ -39,6 +42,7 @@ export default class GameState {
         this.aiHand.cards = [];
         this.humanHand.cards = [];
         this.cribHand.cards = [];
+        this.cutCard = new Card('Back', 'S', 0);
 
         if (cribPlayer === 0) {
             for (let i = 0; i < 6; i++) {
@@ -56,7 +60,18 @@ export default class GameState {
         this.currentState = GameState.CRIBBING;
     }
 
+    // Cut mechanic
+    cut() {
+        this.cutCard = this.deck.dealCard();
+        if (this.cutCard.symbol === "J") {
+            if (this.cribPlayer === 0) this.playerScore += 2;
+            else this.aiScore += 2;
+        }
+    }
+
+    // Handles when a card is played
     humanPlayCard(cardID) {
+        // Cribbing State
         if (this.currentState === GameState.CRIBBING) {
             if (this.cribHand.cards.length < 2) this.cribHand.addCard(this.humanHand.removeCard(cardID));
             if (this.cribHand.cards.length === 2) {
@@ -65,7 +80,11 @@ export default class GameState {
                     this.cribHand.addCard(this.aiHand.removeCard(element));
                 });
                 this.currentState = GameState.PEGGING;
+                this.cut();
             }
         }
+
+        // Pegging State
+
     }
 }
