@@ -17,7 +17,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%
+  width: 50%;
 }
 
 .drop-zone {
@@ -26,7 +26,7 @@ body {
   background-color: #494b4d;
   position: absolute;
   top: 40%;
-  left: 34.6%
+  left: 34.6%;
 }
 
 .cut-container {
@@ -53,5 +53,5 @@ body {
   width: 18%;
   height: 15%;
   top: 6%;
-  left: 79%
+  left: 79%;
 }
