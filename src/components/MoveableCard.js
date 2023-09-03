@@ -29,10 +29,24 @@ export default function MoveableCard(props) {
     const cardArea = (cardRect.right - cardRect.left) * (cardRect.bottom - cardRect.top);
     const percentageInsideDropZone = (intersectionArea / cardArea) * 100;
 
-    // Adjust this threshold as needed (e.g., 50% for a majority)
-    const threshold = 50;
+    // Thresh for percentage of card needed to be in drop zone
+    const percentageThreshold = 50;
 
-    if (percentageInsideDropZone >= threshold) {
+    // Calculate the center of the card and drop zone
+    const cardCenterX = (cardRect.left + cardRect.right) / 2;
+    const cardCenterY = (cardRect.top + cardRect.bottom) / 2;
+    const dropZoneCenterX = (dropZoneRect.left + dropZoneRect.right) / 2;
+    const dropZoneCenterY = (dropZoneRect.top + dropZoneRect.bottom) / 2;
+
+    // Calculate the distance between the card's center and the drop zone's center
+    const distance = Math.sqrt(
+      Math.pow(cardCenterX - dropZoneCenterX, 2) + Math.pow(cardCenterY - dropZoneCenterY, 2)
+    );
+
+    // Thresh for furtherest card can be from DZ (needed for bug issues)
+    const distanceThreshold = 250;
+
+    if (percentageInsideDropZone >= percentageThreshold && distance <= distanceThreshold) {
       // Trigger the action to play the card
       props.onCardPlayed(cardID);
     }
