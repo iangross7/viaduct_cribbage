@@ -23,6 +23,7 @@ function App() {
 
   return (
     <div className='app-container'>
+      <div className='drop-zone' ref={dropZoneRef}></div>
       <div className='hand-container'>
         <AiHand gameState={gameState}/>
         <HumanHand 
@@ -31,7 +32,6 @@ function App() {
           dropZone={dropZoneRef}
         />
       </div>
-      <div className='drop-zone' ref={dropZoneRef}></div>
       <div className='cut-container'>
         <CutCard gameState={gameState}/>
       </div>
