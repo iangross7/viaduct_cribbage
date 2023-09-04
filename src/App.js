@@ -5,6 +5,7 @@ import AiHand from "./components/AIHand.js";
 
 import CutCard from './components/CutCard.js';
 import ScoreBoard from "./components/ScoreBoard.js"
+import HandContinue from './components/HandContinue.js';
 
 import GameState from "./gameLogic/gameState.js";
 
@@ -41,6 +42,7 @@ function App() {
       <div className='ai-score-container'>
         <ScoreBoard player='AI' score={gameState.aiScore}/>
       </div>
+      <HandContinue />
     </div>
   ); 
 }

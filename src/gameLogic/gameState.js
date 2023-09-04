@@ -10,7 +10,7 @@ export default class GameState {
     static PEGGING = "pegging";
 
     constructor({deck = new Deck(), humanHand = new Hand(), aiHand = new Hand(), cribHand = new Hand(), cutCard = new Card('Back', 'S', 0),
-        playerScore = 0, aiScore = 0, cribPlayer = 0, currentState = GameState.START} = {}) {
+        playerScore = 0, aiScore = 0, cribPlayer = 0, currentState = GameState.START, gameFlow = 1} = {}) {
 
         this.deck = deck;
 
@@ -25,6 +25,7 @@ export default class GameState {
         this.cribPlayer = cribPlayer; // 0 for user, 1 for ai's crib
 
         this.currentState = currentState;
+        this.gameFlow = gameFlow; // 0 for STOP, 1 for GO
 
         if (currentState === GameState.START) this.startGame();
     }
@@ -71,6 +72,9 @@ export default class GameState {
 
     // Handles when a card is played
     humanPlayCard(cardID) {
+        // If game is not not at a pause
+        if (this.gameFlow === 1) {
+            
         // Cribbing State
         if (this.currentState === GameState.CRIBBING) {
             if (this.cribHand.cards.length < 2) this.cribHand.addCard(this.humanHand.removeCard(cardID));
@@ -85,6 +89,8 @@ export default class GameState {
         }
 
         // Pegging State
+
+        }
 
     }
 }
