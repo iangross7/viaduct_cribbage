@@ -42,10 +42,11 @@ export default class GameState {
     // Reshuffles deck, cleras old hands, grants players new cards
     newDeal(cribPlayer) {
         this.deck.shuffle();
-        this.aiHand.cards = [];
-        this.humanHand.cards = [];
-        this.cribHand.cards = [];
-        this.peggingHand.cards = [];
+        this.aiHand.clearHand();
+        this.humanHand.clearHand();
+        this.cribHand.clearHand();
+        this.peggingHand.clearHand();
+
         this.cutCard = new Card('Back', 'S', 0);
 
         if (cribPlayer === 0) {
@@ -80,19 +81,20 @@ export default class GameState {
 
         // Cribbing State
         if (this.currentState === GameState.CRIBBING) {
-            if (this.cribHand.cards.length < 2) this.cribHand.addCard(this.humanHand.removeCard(cardID));
+            if (this.cribHand.cards.length < 2) this.cribHand.addCard(this.humanHand.fullPlayCard(cardID));
             if (this.cribHand.cards.length === 2) {
                 const discardCards = Bot.botCribDiscard(this.aiHand);
                 discardCards.forEach(element => {
-                    this.cribHand.addCard(this.aiHand.removeCard(element));
+                    this.cribHand.addCard(this.aiHand.fullPlayCard(element));
                 });
                 this.currentState = GameState.PEGGING;
                 this.cut();
             }
         }
-
         // Pegging State
-
+        else if (this.currentState === GameState.PEGGING) {
+            this.peggingHand.addCard(this.humanHand.playCard(cardID));
+        }
         }
     }
 

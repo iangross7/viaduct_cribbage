@@ -33,7 +33,7 @@ function App() {
   return (
     <div className='app-container'>
       <div className='drop-zone' ref={dropZoneRef}>
-        <PeggingDisplay />
+        <PeggingDisplay gameState={gameState}/>
       </div>
       <div className='hand-container'>
         <AiHand gameState={gameState}/>
