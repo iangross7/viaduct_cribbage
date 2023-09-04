@@ -74,7 +74,7 @@ export default class GameState {
     humanPlayCard(cardID) {
         // If game is not not at a pause
         if (this.gameFlow === 1) {
-            
+
         // Cribbing State
         if (this.currentState === GameState.CRIBBING) {
             if (this.cribHand.cards.length < 2) this.cribHand.addCard(this.humanHand.removeCard(cardID));
@@ -91,6 +91,9 @@ export default class GameState {
         // Pegging State
 
         }
+    }
 
+    continue() {
+        this.gameFlow = 1;
     }
 }

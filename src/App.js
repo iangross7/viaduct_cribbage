@@ -22,6 +22,13 @@ function App() {
     setGameState(updatedGameState);
   }
 
+  // Handling when continue button is pressed
+  const handleContinuePressed = () => {
+    const updatedGameState = new GameState({...gameState});
+    updatedGameState.continue();
+    setGameState(updatedGameState);
+  }
+
   return (
     <div className='app-container'>
       <div className='drop-zone' ref={dropZoneRef}></div>
@@ -42,7 +49,7 @@ function App() {
       <div className='ai-score-container'>
         <ScoreBoard player='AI' score={gameState.aiScore}/>
       </div>
-      <HandContinue />
+      <HandContinue onClick={handleContinuePressed}/>
     </div>
   ); 
 }
