@@ -9,7 +9,8 @@ export default class GameState {
     static CRIBBING = "cribbing";
     static PEGGING = "pegging";
 
-    constructor({deck = new Deck(), humanHand = new Hand(), aiHand = new Hand(), cribHand = new Hand(), cutCard = new Card('Back', 'S', 0),
+    constructor({deck = new Deck(), humanHand = new Hand(), aiHand = new Hand(), cribHand = new Hand(), 
+        cutCard = new Card('Back', 'S', 0), peggingHand = new Hand(),
         playerScore = 0, aiScore = 0, cribPlayer = 0, currentState = GameState.START, gameFlow = 1} = {}) {
 
         this.deck = deck;
@@ -17,6 +18,7 @@ export default class GameState {
         this.humanHand = humanHand;
         this.aiHand = aiHand;
         this.cribHand = cribHand;
+        this.peggingHand = peggingHand;
 
         this.cutCard = cutCard;
 
@@ -43,6 +45,7 @@ export default class GameState {
         this.aiHand.cards = [];
         this.humanHand.cards = [];
         this.cribHand.cards = [];
+        this.peggingHand.cards = [];
         this.cutCard = new Card('Back', 'S', 0);
 
         if (cribPlayer === 0) {

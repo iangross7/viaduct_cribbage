@@ -11,6 +11,7 @@ export default function MoveableCard(props) {
 
   const canMove = props.canMove === 'true';
   const CardSVG = cardSVGs[cardDisplay] || null;
+  const cardLocation = props.cardLocation || 'hand-card';
 
   const handleDragEnd = (event) => {
     const dropZoneRect = dropZoneRef.current.getBoundingClientRect(); // Get drop zone's bounding rectangle
@@ -54,7 +55,7 @@ export default function MoveableCard(props) {
 
   return (
       <motion.div 
-        className='card-wrapper' 
+        className={cardLocation}
         drag={canMove} 
         dragSnapToOrigin="true" // Returns card to original position
         onDragEnd={handleDragEnd} // Handler for when the drag completes

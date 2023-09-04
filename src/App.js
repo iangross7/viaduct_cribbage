@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 
 import HumanHand from "./components/HumanHand.js"
 import AiHand from "./components/AIHand.js";
+import PeggingDisplay from './components/PeggingDisplay.js';
 
 import CutCard from './components/CutCard.js';
 import ScoreBoard from "./components/ScoreBoard.js"
@@ -31,7 +32,9 @@ function App() {
 
   return (
     <div className='app-container'>
-      <div className='drop-zone' ref={dropZoneRef}></div>
+      <div className='drop-zone' ref={dropZoneRef}>
+        <PeggingDisplay />
+      </div>
       <div className='hand-container'>
         <AiHand gameState={gameState}/>
         <HumanHand 
