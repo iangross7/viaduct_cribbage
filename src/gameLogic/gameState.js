@@ -100,9 +100,9 @@ export default class GameState {
             // Doesn't work yet, need AI implementation
             if (!Peg.goCheck(this.humanHand, this.pegScore)) {
                 const playedCard = this.humanHand.playCard(cardID);
+                console.log(Peg.pegPoints(playedCard, this.peggingHand, this.pegScore));
                 this.peggingHand.addCard(playedCard);
-                this.pegScore += playedCard.value;
-            }
+                this.pegScore += playedCard.value;            }
             else {
                 this.goStop = true;
             }

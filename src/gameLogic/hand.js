@@ -7,6 +7,7 @@ export default class Hand {
         this.numCards = numCards;
     }
 
+    // Adds card object
     addCard(card) {
         this.cards.push(card);
         this.cardsHidden.push(card);
@@ -20,7 +21,6 @@ export default class Hand {
             var card = this.cards[index];
 
             this.cards.splice(index, 1);
-            this.numCards--;
 
             return card;
         }
@@ -36,6 +36,7 @@ export default class Hand {
 
             return card;
         }
+        this.numCards--;
     }
 
     // Returns card object, removed from actual and hidden hand

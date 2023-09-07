@@ -3,6 +3,8 @@ import Hand from './hand.js';
 
 export default class Bot {
     // use for 6 card hand of bot decision making, returns the two card IDs to discard.
+    // logically places the two cards that grant it the most 4-card in-hand points into the crib. 
+    // does not have a tie-breaker.
     static botCribDiscard(hand) {
         let bestScore = 0;
         let bestDiscard = [];
