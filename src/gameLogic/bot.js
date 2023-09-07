@@ -25,4 +25,9 @@ export default class Bot {
         
           return bestDiscard.map(c => c.id);
     }
+
+    // TODO: implement
+    static botPeg(aiHand, pegHand, pegScore) {
+      return null;
+    }
 }

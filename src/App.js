@@ -52,7 +52,7 @@ function App() {
       <div className='ai-score-container'>
         <ScoreBoard player='AI' score={gameState.aiScore}/>
       </div>
-      <HandContinue onClick={handleContinuePressed}/>
+      <HandContinue onClick={handleContinuePressed} gameState={gameState}/>
     </div>
   ); 
 }

@@ -3,6 +3,7 @@ import Deck from './deck.js';
 import Hand from './hand.js';
 import Bot from './bot.js';
 import Score from './score.js';
+import Peg from './peg.js';
 
 export default class GameState {
     static START = "start";
@@ -10,14 +11,16 @@ export default class GameState {
     static PEGGING = "pegging";
 
     constructor({deck = new Deck(), humanHand = new Hand(), aiHand = new Hand(), cribHand = new Hand(), 
-        cutCard = new Card('Back', 'S', 0), peggingHand = new Hand(),
-        playerScore = 0, aiScore = 0, cribPlayer = 0, currentState = GameState.START, gameFlow = 1} = {}) {
+        cutCard = new Card('Back', 'S', 0), peggingHand = new Hand(), pegScore = 0, goStop = false,
+        playerScore = 0, aiScore = 0, cribPlayer = 0, currentState = GameState.START, gameFlowing = true} = {}) {
 
-        this.deck = deck;
+        this.deck = deck; // deck object
 
-        this.humanHand = humanHand;
+        this.humanHand = humanHand; // hands keeping track of crib, ai, and human cards
         this.aiHand = aiHand;
         this.cribHand = cribHand;
+
+        this.pegScore = pegScore; // pegging infromation
         this.peggingHand = peggingHand;
 
         this.cutCard = cutCard;
@@ -26,8 +29,9 @@ export default class GameState {
         this.aiScore = aiScore;
         this.cribPlayer = cribPlayer; // 0 for user, 1 for ai's crib
 
-        this.currentState = currentState;
-        this.gameFlow = gameFlow; // 0 for STOP, 1 for GO
+        this.currentState = currentState; // state of the game
+        this.gameFlowing = gameFlowing; // true for go, false for stopped
+        this.goStop = goStop; // true for goStop, false for noGoStop
 
         if (currentState === GameState.START) this.startGame();
     }
@@ -77,7 +81,7 @@ export default class GameState {
     // Handles when a card is played
     humanPlayCard(cardID) {
         // If game is not not at a pause
-        if (this.gameFlow === 1) {
+        if (this.gameFlowing) {
 
         // Cribbing State
         if (this.currentState === GameState.CRIBBING) {
@@ -91,14 +95,22 @@ export default class GameState {
                 this.cut();
             }
         }
-        // Pegging State
+        // Pegging State 
         else if (this.currentState === GameState.PEGGING) {
-            this.peggingHand.addCard(this.humanHand.playCard(cardID));
+            // Doesn't work yet, need AI implementation
+            if (!Peg.goCheck(this.humanHand, this.pegScore)) {
+                const playedCard = this.humanHand.playCard(cardID);
+                this.peggingHand.addCard(playedCard);
+                this.pegScore += playedCard.value;
+            }
+            else {
+                this.goStop = true;
+            }
         }
         }
     }
 
     continue() {
-        this.gameFlow = 1;
+        this.gameFlowing = true;
     }
 }
