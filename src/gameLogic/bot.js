@@ -1,5 +1,6 @@
 import Score from './score.js';
 import Hand from './hand.js';
+import Peg from './peg.js';
 
 export default class Bot {
     // use for 6 card hand of bot decision making, returns the two card IDs to discard.
@@ -28,8 +29,22 @@ export default class Bot {
           return bestDiscard.map(c => c.id);
     }
 
-    // TODO: implement
-    static botPeg(aiHand, pegHand, pegScore) {
-      return null;
+    // Returns the ID of the best hand for the bot to peg
+    // Logically picks the card yielding highest points, and if that's zero, the card with the highest numerical value
+    static botPeg(hand, pegHand, pegScore) {
+      if (Peg.goCheck(hand, pegScore)) return null;
+
+      let bestScore = 0;
+      let highestVal = 0
+      let bestCard = hand.cards[0];
+
+      for (let i = 0; i < hand.length; i++) {
+        if (Peg.canCardBePlayed(hand.cards[i], pegScore)) {
+          if (Peg.pegPoints(hand.cards[i], pegHand, pegScore) > bestScore) bestCard = hand.cards[i];
+          else if (bestScore <= 0 && hand.cards[i].value > highestVal) bestCard = hand.cards[i];
+        }
+      }
+
+      return bestCard.id;
     }
 }

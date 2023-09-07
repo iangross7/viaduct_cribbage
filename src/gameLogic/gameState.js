@@ -43,7 +43,7 @@ export default class GameState {
         this.newDeal(this.cribPlayer);
     }
 
-    // Reshuffles deck, cleras old hands, grants players new cards
+    // Reshuffles deck, clears old hands, grants players new cards
     newDeal(cribPlayer) {
         this.deck.shuffle();
         this.aiHand.clearHand();
@@ -102,7 +102,8 @@ export default class GameState {
                 const playedCard = this.humanHand.playCard(cardID);
                 console.log(Peg.pegPoints(playedCard, this.peggingHand, this.pegScore));
                 this.peggingHand.addCard(playedCard);
-                this.pegScore += playedCard.value;            }
+                this.pegScore += playedCard.value;            
+            }
             else {
                 this.goStop = true;
             }
