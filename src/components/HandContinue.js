@@ -13,7 +13,7 @@ export default function HandContinue(props) {
         <button 
             className='hand-button'
             onClick = {props.onClick}
-            // style = {{display: visibility}}
+            style = {{display: visibility}}
             >{text}</button>
     );
 }

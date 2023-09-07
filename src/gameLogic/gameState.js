@@ -91,8 +91,7 @@ export default class GameState {
                 discardCards.forEach(element => {
                     this.cribHand.addCard(this.aiHand.fullPlayCard(element));
                 });
-                this.currentState = GameState.PEGGING;
-                this.cut();
+                this.gameFlowing = false;
             }
         }
         // Pegging State 
@@ -113,5 +112,9 @@ export default class GameState {
 
     continue() {
         this.gameFlowing = true;
+        if (this.currentState === GameState.CRIBBING) {
+            this.currentState = GameState.PEGGING;
+            this.cut();
+        }
     }
 }

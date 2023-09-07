@@ -14,6 +14,7 @@ export default class Peg {
     static pegPoints(card, pegHand, pegScore) {
         let points = 0;
         points += this.calculateFifteenPoints(card, pegScore);
+        points += this.calculateThirtyOnePoints(card, pegScore);
         points += this.calculateRunPoints(card, pegHand);
         points += this.calculatePairPoints(card, pegHand);
         return points;
@@ -30,6 +31,12 @@ export default class Peg {
         else return 0;
     }
 
+    // Finds points found for a thirty-one play
+    static calculateThirtyOnePoints(card, pegScore) {
+        if (card.value + pegScore === 31) return 2;
+        else return 0;
+    }
+
     // Finds points found for runs
     static calculateRunPoints(card, pegHand) {
         let newHand = new Hand({...pegHand});
@@ -42,7 +49,7 @@ export default class Peg {
         if (orderSize >= 3) {
             let threeArray = [...orderArray.slice(orderSize - 3)].sort((a, b) => a - b);
             if (threeArray[0] + 1 === threeArray[1] && threeArray[0] + 2 === threeArray[2]) runSize = 3;
-            if (orderSize >= 4 && runSize != 0) {
+            if (orderSize >= 4 && runSize !== 0) {
                 let fourArray = [...orderArray.slice(orderSize - 4)].sort((a, b) => a - b);
                 if (fourArray[0] + 1 === fourArray[1] && fourArray[0] + 2 === fourArray[2] && fourArray[0] + 3 === fourArray[3]) runSize = 4;
             }
