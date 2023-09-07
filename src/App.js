@@ -2,7 +2,9 @@ import { useState, useRef } from 'react';
 
 import HumanHand from "./components/HumanHand.js"
 import AiHand from "./components/AIHand.js";
+
 import PeggingDisplay from './components/PeggingDisplay.js';
+import PeggingCount from './components/PeggingCount.js';
 
 import CutCard from './components/CutCard.js';
 import ScoreBoard from "./components/ScoreBoard.js"
@@ -45,6 +47,9 @@ function App() {
       </div>
       <div className='cut-container'>
         <CutCard gameState={gameState}/>
+      </div>
+      <div className='peg-point-container'>
+        <PeggingCount gameState={gameState}/>
       </div>
       <div className='human-score-container'>
         <ScoreBoard player='Player' score={gameState.playerScore}/>
