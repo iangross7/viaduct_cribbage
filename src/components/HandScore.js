@@ -13,7 +13,7 @@ export default function HandScore(props) {
     return (
         <div className="hand-score">
             <h3 style={{textAlign: 'center'}}>{header}</h3>
-            <p>{body}</p>
+            <p style={{whiteSpace: 'pre-line'}}>{body}</p>
         </div>
     );
 }

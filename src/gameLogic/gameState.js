@@ -177,7 +177,7 @@ export default class GameState {
             }
         }
 
-        // Scoring continue
+        // Scoring continue TODO: add second to count
         else if (this.currentState === GameState.SCORING) {
             if (this.aiHand.cards.length === 0 && this.humanHand.cards.length === 0) {
                 if (this.humanCrib) {
@@ -186,6 +186,7 @@ export default class GameState {
                 else {
                     this.humanHand.cards = this.humanHand.cardsHidden;
                 }
+                this.gameFlowing = false;
             }
         }
     }
@@ -219,7 +220,7 @@ export default class GameState {
         else return "Player's Hand Score";
     }
 
-    // TODO: Fix text, implement human counting
+    // Returns correct score body for state of game
     generateScoreBody() {
         // If AI is counting:
         if ((this.humanCrib && this.humanHand.cards.length === 0) || (!this.humanCrib && this.aiHand.cards.length !== 0)) {
@@ -227,16 +228,35 @@ export default class GameState {
             let returnString = "";
             fullHand.addCard(this.cutCard);
             if (Score.calculateFifteenPoints(fullHand) !== 0) {
-                returnString = returnString + "\n Points from fifteens: " +  Score.calculateFifteenPoints(fullHand);
+                returnString = returnString + "\n Points from Fifteens: " +  Score.calculateFifteenPoints(fullHand);
             }
             if (Score.calculateRunPoints(fullHand) !== 0) {
-                returnString = returnString + "\n Points from runs: " +  Score.calculateRunPoints(fullHand);
+                returnString = returnString + "\n Points from Runs: " +  Score.calculateRunPoints(fullHand);
             }
             if (Score.calculatePairPoints(fullHand) !== 0) {
-                returnString = returnString + "\n Points from pairs: " +  Score.calculatePairPoints(fullHand);
+                returnString = returnString + "\n Points from Pairs: " +  Score.calculatePairPoints(fullHand);
             }
             if (Score.calculateSuitPoints(fullHand) !== 0) {
-                returnString = returnString + "\n Points from flush: " +  Score.calculateSuitPoints(fullHand);
+                returnString = returnString + "\n Points from Flush: " +  Score.calculateSuitPoints(fullHand);
+            }
+            returnString = returnString + "\n Total Points: " + Score.handScore(fullHand);
+            return returnString;
+        }
+        else {
+            const fullHand = new Hand({...this.humanHand});
+            let returnString = "";
+            fullHand.addCard(this.cutCard);
+            if (Score.calculateFifteenPoints(fullHand) !== 0) {
+                returnString = returnString + "\n Points from Fifteens: " +  Score.calculateFifteenPoints(fullHand);
+            }
+            if (Score.calculateRunPoints(fullHand) !== 0) {
+                returnString = returnString + "\n Points from Runs: " +  Score.calculateRunPoints(fullHand);
+            }
+            if (Score.calculatePairPoints(fullHand) !== 0) {
+                returnString = returnString + "\n Points from Pairs: " +  Score.calculatePairPoints(fullHand);
+            }
+            if (Score.calculateSuitPoints(fullHand) !== 0) {
+                returnString = returnString + "\n Points from Flush: " +  Score.calculateSuitPoints(fullHand);
             }
             returnString = returnString + "\n Total Points: " + Score.handScore(fullHand);
             return returnString;
