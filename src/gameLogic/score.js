@@ -5,19 +5,17 @@ export default class Score {
     static handScore(hand) {
         let points = 0;
 
-        const handVals = hand.cards.map(c => c.value);
-        const handSuits = hand.cards.map(c => c.suit);
-        const handOrder = hand.cards.map(c => c.order);
-
-        points += this.calculateFifteenPoints(handVals);
-        points += this.calculatePairPoints(handOrder);
-        points += this.calculateRunPoints(handOrder);
-        points += this.calculateSuitPoints(handSuits);
+        points += this.calculateFifteenPoints(hand);
+        points += this.calculatePairPoints(hand);
+        points += this.calculateRunPoints(hand);
+        points += this.calculateSuitPoints(hand);
 
         return points;
     }
 
-    static calculateFifteenPoints(handVals) {
+    static calculateFifteenPoints(hand) {
+        const handVals = hand.cards.map(c => c.value);
+
         const result = [];
     
         const combine = (start, current) => {
@@ -36,7 +34,8 @@ export default class Score {
         return result.length * 2;
     }
 
-    static calculateRunPoints(handOrder) {
+    static calculateRunPoints(hand) {
+        const handOrder = hand.cards.map(c => c.order);
         const sortedHand = [...handOrder].sort();
         const uniqueHand = [];
         sortedHand.forEach(element => {
@@ -84,7 +83,8 @@ export default class Score {
         return runCount * dupeFactor;
     }
 
-    static calculateSuitPoints(handSuits) {
+    static calculateSuitPoints(hand) {
+        const handSuits = hand.cards.map(c => c.suit);
         const sortedSuits = [...handSuits].sort();
 
         for (let i = 0; i < sortedSuits.length - 3; i++) {
@@ -96,7 +96,8 @@ export default class Score {
         return 0;
     }
 
-    static calculatePairPoints(handOrder) {
+    static calculatePairPoints(hand) {
+        const handOrder = hand.cards.map(c => c.order);
         const sortedHand = [...handOrder].sort();
         let pairPoints = 0;
 

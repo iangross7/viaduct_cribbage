@@ -34,7 +34,7 @@ export default class Peg {
 
     // Finds points found for a thirty-one play
     static calculateThirtyOnePoints(card, pegScore) {
-        if (card.value + pegScore === 31) return 2;
+        if (card.value + pegScore === 31) return 1;
         else return 0;
     }
 
@@ -67,9 +67,6 @@ export default class Peg {
         let pairCount = 0;
 
         for (let i = newHand.cards.length - 1; i > 0; i--) {
-            // console.log(i);
-            // console.log(newHand.cards[i].order);
-            // console.log(newHand.cards[i-1].order);
             if (i === newHand.cards.length - 1) {
                 if (newHand.cards[i].order === newHand.cards[i - 1].order) pairCount += 2;
             }

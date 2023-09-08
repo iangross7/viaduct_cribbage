@@ -8,7 +8,9 @@ import PeggingCount from './components/PeggingCount.js';
 
 import CutCard from './components/CutCard.js';
 import ScoreBoard from "./components/ScoreBoard.js"
+
 import HandContinue from './components/HandContinue.js';
+import HandScore from './components/HandScore.js';
 
 import GameState from "./gameLogic/gameState.js";
 
@@ -58,6 +60,9 @@ function App() {
       </div>
       <div className='ai-score-container'>
         <ScoreBoard player='AI' score={gameState.aiScore}/>
+      </div>
+      <div className='hand-score-container'>
+        <HandScore gameState={gameState}/>
       </div>
       <HandContinue onClick={handleContinuePressed} gameState={gameState}/>
     </div>

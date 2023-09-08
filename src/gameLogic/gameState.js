@@ -183,6 +183,9 @@ export default class GameState {
                 if (this.humanCrib) {
                     this.aiHand.cards = this.aiHand.cardsHidden;
                 }
+                else {
+                    this.humanHand.cards = this.humanHand.cardsHidden;
+                }
             }
         }
     }
@@ -204,5 +207,39 @@ export default class GameState {
     // Returns true if the bot is able to peg, false otherwise
     canBotPeg() {
         return (!(Peg.goCheck(this.aiHand, this.pegScore)) && this.aiHand.cards.length !== 0);
+    }
+
+    // Returns correct score header for state of the game
+    generateScoreHeader() {
+        // If it's the human crib and he isn't to count, ai is counting
+        if ((this.humanCrib && this.humanHand.cards.length === 0) || (!this.humanCrib && this.aiHand.cards.length !== 0)) {
+            return "AI's Hand Score";
+        }
+        // Human is counting
+        else return "Player's Hand Score";
+    }
+
+    // TODO: Fix text, implement human counting
+    generateScoreBody() {
+        // If AI is counting:
+        if ((this.humanCrib && this.humanHand.cards.length === 0) || (!this.humanCrib && this.aiHand.cards.length !== 0)) {
+            const fullHand = new Hand({...this.aiHand});
+            let returnString = "";
+            fullHand.addCard(this.cutCard);
+            if (Score.calculateFifteenPoints(fullHand) !== 0) {
+                returnString = returnString + "\n Points from fifteens: " +  Score.calculateFifteenPoints(fullHand);
+            }
+            if (Score.calculateRunPoints(fullHand) !== 0) {
+                returnString = returnString + "\n Points from runs: " +  Score.calculateRunPoints(fullHand);
+            }
+            if (Score.calculatePairPoints(fullHand) !== 0) {
+                returnString = returnString + "\n Points from pairs: " +  Score.calculatePairPoints(fullHand);
+            }
+            if (Score.calculateSuitPoints(fullHand) !== 0) {
+                returnString = returnString + "\n Points from flush: " +  Score.calculateSuitPoints(fullHand);
+            }
+            returnString = returnString + "\n Total Points: " + Score.handScore(fullHand);
+            return returnString;
+        }
     }
 }
