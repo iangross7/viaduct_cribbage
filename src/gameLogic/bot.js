@@ -29,22 +29,28 @@ export default class Bot {
           return bestDiscard.map(c => c.id);
     }
 
-    // Returns the ID of the best hand for the bot to peg
+    // Returns the OBJECT of the best card for the bot to peg
     // Logically picks the card yielding highest points, and if that's zero, the card with the highest numerical value
     static botPeg(hand, pegHand, pegScore) {
       if (Peg.goCheck(hand, pegScore)) return null;
 
       let bestScore = 0;
-      let highestVal = 0
+      let highestVal = 0;
       let bestCard = hand.cards[0];
 
-      for (let i = 0; i < hand.length; i++) {
+      for (let i = 0; i < hand.cards.length; i++) {
         if (Peg.canCardBePlayed(hand.cards[i], pegScore)) {
-          if (Peg.pegPoints(hand.cards[i], pegHand, pegScore) > bestScore) bestCard = hand.cards[i];
-          else if (bestScore <= 0 && hand.cards[i].value > highestVal) bestCard = hand.cards[i];
+          if (Peg.pegPoints(hand.cards[i], pegHand, pegScore) > bestScore) { 
+            bestCard = hand.cards[i];
+            bestScore = Peg.pegPoints(hand.cards[i], pegHand, pegScore);
+          }
+          else if (bestScore <= 0 && hand.cards[i].value > highestVal)  {
+            bestCard = hand.cards[i];
+            highestVal = hand.cards[i].value;
+          }
         }
       }
 
-      return bestCard.id;
+      return bestCard;
     }
 }

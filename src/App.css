@@ -13,11 +13,17 @@ body {
   align-items: center;
 }
 
-.hand-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.upper-hand-container {
+  position: absolute;
   width: 50%;
+  height: 32%;
+}
+
+.lower-hand-container {
+  position: absolute;
+  width: 50%;
+  height: 31%;
+  top: 69%;
 }
 
 .drop-zone {

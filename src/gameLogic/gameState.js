@@ -12,7 +12,7 @@ export default class GameState {
 
     constructor({deck = new Deck(), humanHand = new Hand(), aiHand = new Hand(), cribHand = new Hand(), 
         cutCard = new Card('Back', 'S', 0), peggingHand = new Hand(), pegScore = 0, goStop = false,
-        playerScore = 0, aiScore = 0, cribPlayer = 0, currentState = GameState.START, gameFlowing = true} = {}) {
+        playerScore = 0, aiScore = 0, humanCrib = true, currentState = GameState.START, gameFlowing = true} = {}) {
 
         this.deck = deck; // deck object
 
@@ -27,11 +27,11 @@ export default class GameState {
 
         this.playerScore = playerScore;
         this.aiScore = aiScore;
-        this.cribPlayer = cribPlayer; // 0 for user, 1 for ai's crib
+        this.humanCrib = humanCrib; // true if user crib, false if ai crib
 
         this.currentState = currentState; // state of the game
         this.gameFlowing = gameFlowing; // true for go, false for stopped
-        this.goStop = goStop; // true for goStop, false for noGoStop
+        this.goStop = goStop; // true for goStop, false for noGoStop (player's go)
 
         if (currentState === GameState.START) this.startGame();
     }
@@ -40,11 +40,11 @@ export default class GameState {
     startGame() {
         this.playerScore = 0;
         this.aiScore = 0;
-        this.newDeal(this.cribPlayer);
+        this.newDeal(this.humanCrib);
     }
 
     // Reshuffles deck, clears old hands, grants players new cards
-    newDeal(cribPlayer) {
+    newDeal(humanCrib) {
         this.deck.shuffle();
         this.aiHand.clearHand();
         this.humanHand.clearHand();
@@ -53,7 +53,7 @@ export default class GameState {
 
         this.cutCard = new Card('Back', 'S', 0);
 
-        if (cribPlayer === 0) {
+        if (humanCrib) {
             for (let i = 0; i < 6; i++) {
                 this.aiHand.addCard(this.deck.dealCard());
                 this.humanHand.addCard(this.deck.dealCard());
@@ -73,7 +73,7 @@ export default class GameState {
     cut() {
         this.cutCard = this.deck.dealCard();
         if (this.cutCard.symbol === "J") {
-            if (this.cribPlayer === 0) this.playerScore += 2;
+            if (this.humanCrib) this.playerScore += 2;
             else this.aiScore += 2;
         }
     }
@@ -83,38 +83,69 @@ export default class GameState {
         // If game is not not at a pause
         if (this.gameFlowing) {
 
-        // Cribbing State
-        if (this.currentState === GameState.CRIBBING) {
-            if (this.cribHand.cards.length < 2) this.cribHand.addCard(this.humanHand.fullPlayCard(cardID));
-            if (this.cribHand.cards.length === 2) {
-                const discardCards = Bot.botCribDiscard(this.aiHand);
-                discardCards.forEach(element => {
-                    this.cribHand.addCard(this.aiHand.fullPlayCard(element));
-                });
-                this.gameFlowing = false;
+            // Cribbing State
+            if (this.currentState === GameState.CRIBBING) {
+                if (this.cribHand.cards.length < 2) this.cribHand.addCard(this.humanHand.fullPlayCard(cardID));
+                if (this.cribHand.cards.length === 2) {
+                    const discardCards = Bot.botCribDiscard(this.aiHand);
+                    discardCards.forEach(element => {
+                        this.cribHand.addCard(this.aiHand.fullPlayCard(element));
+                    });
+                    this.gameFlowing = false;
+                }
             }
-        }
-        // Pegging State 
-        else if (this.currentState === GameState.PEGGING) {
-            // Doesn't work yet, need AI implementation
-            if (!Peg.goCheck(this.humanHand, this.pegScore)) {
-                const playedCard = this.humanHand.playCard(cardID);
-                console.log(Peg.pegPoints(playedCard, this.peggingHand, this.pegScore));
-                this.peggingHand.addCard(playedCard);
-                this.pegScore += playedCard.value;            
+            // Pegging State 
+            else if (this.currentState === GameState.PEGGING) {
+                if (Peg.canCardBePlayed(this.humanHand.findCardByID(cardID), this.pegScore)) {
+                    const playedCard = this.humanHand.playCard(cardID);
+                    this.peggingHand.addCard(playedCard);
+                    this.pegScore += playedCard.value;  
+
+                    if (!Peg.goCheck(this.aiHand, this.pegScore)) {
+                        let aiCard = Bot.botPeg(this.aiHand, this.peggingHand, this.pegScore);
+                        this.peggingHand.addCard(this.aiHand.playCard(aiCard.id));
+                        this.pegScore += aiCard.value;
+
+                        if (Peg.goCheck(this.humanHand, this.pegScore)) {
+                            this.gameFlowing = false;
+                            this.goStop = true;
+                        }
+                    }
+                    else {
+                        this.gameFlowing = false;
+                    }
+                
+                }
             }
-            else {
-                this.goStop = true;
-            }
-        }
         }
     }
 
     continue() {
         this.gameFlowing = true;
+
+        // Crib continue
         if (this.currentState === GameState.CRIBBING) {
             this.currentState = GameState.PEGGING;
             this.cut();
+            console.log(this.aiHand);
+            if (this.humanCrib) {
+                let cardPlayed = Bot.botPeg(this.aiHand, this.peggingHand, this.pegScore);
+                this.peggingHand.addCard(this.aiHand.playCard(cardPlayed.id));
+                this.pegScore += cardPlayed.value;
+            }
+        }
+
+        // Peg continue
+        else if (this.currentState === GameState.PEGGING) {
+            this.peggingHand.clearHand();
+            this.pegScore = 0;
+            if (this.goStop === true) this.aiScore++;
+            else {
+                this.playerScore++;
+                let aiCard = Bot.botPeg(this.aiHand, this.peggingHand, this.pegScore);
+                this.peggingHand.addCard(this.aiHand.playCard(aiCard.id));
+                this.pegScore += aiCard.value;
+            }
         }
     }
 }

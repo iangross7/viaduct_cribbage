@@ -37,9 +37,11 @@ function App() {
       <div className='drop-zone' ref={dropZoneRef}>
         <PeggingDisplay gameState={gameState}/>
       </div>
-      <div className='hand-container'>
+      <div className='upper-hand-container'>
         <AiHand gameState={gameState}/>
-        <HumanHand 
+      </div>
+      <div className='lower-hand-container'>
+      <HumanHand 
           gameState={gameState} 
           onCardPlayed={handleCardPlayedHuman}
           dropZone={dropZoneRef}

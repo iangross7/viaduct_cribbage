@@ -51,4 +51,14 @@ export default class Hand {
         this.cardsHidden = [];
         this.numCards = 0;
     }
+
+    // Finds card by its ID
+    findCardByID(cardID) {
+        var index = this.cards.map(e => e.id).indexOf(cardID);
+        if (index > -1) {
+            var card = this.cards[index];
+
+            return card;
+        }
+    }
 }
