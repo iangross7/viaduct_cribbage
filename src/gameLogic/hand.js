@@ -34,9 +34,9 @@ export default class Hand {
 
             this.cardsHidden.splice(index, 1);
 
+            this.numCards--;
             return card;
         }
-        this.numCards--;
     }
 
     // Returns card object, removed from actual and hidden hand

@@ -9,6 +9,7 @@ export default class GameState {
     static START = "start";
     static CRIBBING = "cribbing";
     static PEGGING = "pegging";
+    static SCORING = "scoring";
 
     constructor({deck = new Deck(), humanHand = new Hand(), aiHand = new Hand(), cribHand = new Hand(), 
         cutCard = new Card('Back', 'S', 0), peggingHand = new Hand(), pegScore = 0, goStop = false,
@@ -96,24 +97,28 @@ export default class GameState {
             }
             // Pegging State 
             else if (this.currentState === GameState.PEGGING) {
+                // If the played card is legally able to be played
                 if (Peg.canCardBePlayed(this.humanHand.findCardByID(cardID), this.pegScore)) {
+                    // Play it and update values accordingly
                     const playedCard = this.humanHand.playCard(cardID);
                     this.playerScore += Peg.pegPoints(playedCard, this.peggingHand, this.pegScore);
                     this.peggingHand.addCard(playedCard);
                     this.pegScore += playedCard.value;  
 
+                    // If the bot can peg back, it shall
                     if (this.canBotPeg()) {
                         this.botPeg();
-
+                        // And it will continue pegging while it can and the human can't
                         if (!this.canHumanPeg()) {
-                            while (this.canBotPeg) {
+                            while (this.canBotPeg()) {
                                 this.botPeg();
                             }
+                            // And that would be a go in favor of the bot
                             this.gameFlowing = false;
                             this.goStop = true;
-                
                         }
                     }
+                    // If it can't peg back, it's now a go for the human if the human also can't play
                     else {
                         if (!this.canHumanPeg()) this.gameFlowing = false;
                     }
@@ -124,7 +129,7 @@ export default class GameState {
     }
 
     continue() {
-        this.gameFlowing = true;
+        if (this.currentState !== GameState.SCORING) this.gameFlowing = true;
 
         // Crib continue
         if (this.currentState === GameState.CRIBBING) {
@@ -138,12 +143,34 @@ export default class GameState {
 
         // Peg continue
         else if (this.currentState === GameState.PEGGING) {
+            // Reset the pegging hand for a clear go
             this.peggingHand.clearHand();
             this.pegScore = 0;
-            if (this.goStop === true) this.aiScore++;
+            // If no cards are left to be pegged, pegging concludes
+            if (!(this.canHumanPeg()) && !(this.canBotPeg())) {
+                if (this.goStop) this.aiScore++;
+                else this.playerScore++;
+                this.currentState = GameState.SCORING;
+                return;
+            }
+            // If it was a go because of the human, it's a point for the bot and human now plays
+            if (this.goStop) {
+                this.aiScore++;
+                this.goStop = false;
+            } 
+            // Otherwise, a go for the human and the bot shall play next
             else {
                 this.playerScore++;
                 this.botPeg();
+                if (!this.canHumanPeg()) {
+                    while (this.canBotPeg()) {
+                        this.botPeg();
+                    }
+                    if (!(this.canHumanPeg()) && !(this.canBotPeg())) {
+                        this.goStop = true;
+                        this.gameFlowing = false;
+                    }
+                }
             }
         }
     }
@@ -151,6 +178,7 @@ export default class GameState {
     // Handles when a bot is supposed to peg
     botPeg() {
         let aiCard = Bot.botPeg(this.aiHand, this.peggingHand, this.pegScore);
+        if (aiCard === null) return;
         this.aiScore += Peg.pegPoints(aiCard, this.peggingHand, this.pegScore);
         this.peggingHand.addCard(this.aiHand.playCard(aiCard.id));
         this.pegScore += aiCard.value;
@@ -158,11 +186,11 @@ export default class GameState {
 
     // Returns true if a human is able to peg, false otherwise
     canHumanPeg() {
-        return !Peg.goCheck(this.humanHand, this.pegScore);
+        return (!(Peg.goCheck(this.humanHand, this.pegScore)) && this.humanHand.cards.length !== 0);
     }
 
     // Returns true if the bot is able to peg, false otherwise
     canBotPeg() {
-        return !Peg.goCheck(this.aiHand, this.pegScore);
+        return (!(Peg.goCheck(this.aiHand, this.pegScore)) && this.aiHand.cards.length !== 0);
     }
 }
