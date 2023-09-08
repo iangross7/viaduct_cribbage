@@ -98,21 +98,24 @@ export default class GameState {
             else if (this.currentState === GameState.PEGGING) {
                 if (Peg.canCardBePlayed(this.humanHand.findCardByID(cardID), this.pegScore)) {
                     const playedCard = this.humanHand.playCard(cardID);
+                    this.playerScore += Peg.pegPoints(playedCard, this.peggingHand, this.pegScore);
                     this.peggingHand.addCard(playedCard);
                     this.pegScore += playedCard.value;  
 
-                    if (!Peg.goCheck(this.aiHand, this.pegScore)) {
-                        let aiCard = Bot.botPeg(this.aiHand, this.peggingHand, this.pegScore);
-                        this.peggingHand.addCard(this.aiHand.playCard(aiCard.id));
-                        this.pegScore += aiCard.value;
+                    if (this.canBotPeg()) {
+                        this.botPeg();
 
-                        if (Peg.goCheck(this.humanHand, this.pegScore)) {
+                        if (!this.canHumanPeg()) {
+                            while (this.canBotPeg) {
+                                this.botPeg();
+                            }
                             this.gameFlowing = false;
                             this.goStop = true;
+                
                         }
                     }
                     else {
-                        this.gameFlowing = false;
+                        if (!this.canHumanPeg()) this.gameFlowing = false;
                     }
                 
                 }
@@ -129,9 +132,7 @@ export default class GameState {
             this.cut();
             console.log(this.aiHand);
             if (this.humanCrib) {
-                let cardPlayed = Bot.botPeg(this.aiHand, this.peggingHand, this.pegScore);
-                this.peggingHand.addCard(this.aiHand.playCard(cardPlayed.id));
-                this.pegScore += cardPlayed.value;
+                this.botPeg();
             }
         }
 
@@ -142,10 +143,26 @@ export default class GameState {
             if (this.goStop === true) this.aiScore++;
             else {
                 this.playerScore++;
-                let aiCard = Bot.botPeg(this.aiHand, this.peggingHand, this.pegScore);
-                this.peggingHand.addCard(this.aiHand.playCard(aiCard.id));
-                this.pegScore += aiCard.value;
+                this.botPeg();
             }
         }
+    }
+
+    // Handles when a bot is supposed to peg
+    botPeg() {
+        let aiCard = Bot.botPeg(this.aiHand, this.peggingHand, this.pegScore);
+        this.aiScore += Peg.pegPoints(aiCard, this.peggingHand, this.pegScore);
+        this.peggingHand.addCard(this.aiHand.playCard(aiCard.id));
+        this.pegScore += aiCard.value;
+    }
+
+    // Returns true if a human is able to peg, false otherwise
+    canHumanPeg() {
+        return !Peg.goCheck(this.humanHand, this.pegScore);
+    }
+
+    // Returns true if the bot is able to peg, false otherwise
+    canBotPeg() {
+        return !Peg.goCheck(this.aiHand, this.pegScore);
     }
 }
