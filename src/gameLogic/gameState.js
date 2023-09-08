@@ -108,7 +108,7 @@ export default class GameState {
                     // If the bot can peg back, it shall
                     if (this.canBotPeg()) {
                         this.botPeg();
-                        // And it will continue pegging while it can and the human can't
+                        // And it will continue pegging while it can and the human can't per cribbage rules
                         if (!this.canHumanPeg()) {
                             while (this.canBotPeg()) {
                                 this.botPeg();
@@ -129,9 +129,9 @@ export default class GameState {
     }
 
     continue() {
-        if (this.currentState !== GameState.SCORING) this.gameFlowing = true;
+        this.gameFlowing = true;
 
-        // Crib continue
+        // Crib continue into pegging
         if (this.currentState === GameState.CRIBBING) {
             this.currentState = GameState.PEGGING;
             this.cut();
@@ -146,10 +146,13 @@ export default class GameState {
             // Reset the pegging hand for a clear go
             this.peggingHand.clearHand();
             this.pegScore = 0;
+            console.log(this.canHumanPeg());
+            console.log(this.canBotPeg());
             // If no cards are left to be pegged, pegging concludes
             if (!(this.canHumanPeg()) && !(this.canBotPeg())) {
                 if (this.goStop) this.aiScore++;
                 else this.playerScore++;
+                this.gameFlowing = false;
                 this.currentState = GameState.SCORING;
                 return;
             }
@@ -170,6 +173,15 @@ export default class GameState {
                         this.goStop = true;
                         this.gameFlowing = false;
                     }
+                }
+            }
+        }
+
+        // Scoring continue
+        else if (this.currentState === GameState.SCORING) {
+            if (this.aiHand.cards.length === 0 && this.humanHand.cards.length === 0) {
+                if (this.humanCrib) {
+                    this.aiHand.cards = this.aiHand.cardsHidden;
                 }
             }
         }
