@@ -11,6 +11,7 @@ export default class GameState {
     static PEGGING = "pegging";
     static SCORING = "scoring";
     static ROUNDOVER = "roundover";
+    static GAMEOVER = "gameover";
 
     constructor({deck = new Deck(), humanHand = new Hand(), aiHand = new Hand(), cribHand = new Hand(), 
         cutCard = new Card('Back', 'S', 0), peggingHand = new Hand(), pegScore = 0, goStop = false,
@@ -41,8 +42,8 @@ export default class GameState {
 
     // Begins Game 
     startGame() {
-        this.playerScore = 0;
-        this.aiScore = 0;
+        this.playerScore = 110;
+        this.aiScore = 110;
         this.newDeal(this.humanCrib);
     }
 
@@ -76,8 +77,8 @@ export default class GameState {
     cut() {
         this.cutCard = this.deck.dealCard();
         if (this.cutCard.symbol === "J") {
-            if (this.humanCrib) this.playerScore += 2;
-            else this.aiScore += 2;
+            if (this.humanCrib) this.increasePlayerScore(2);
+            else this.increaseAIScore(2);
         }
     }
 
@@ -151,21 +152,21 @@ export default class GameState {
             console.log(this.canBotPeg());
             // If no cards are left to be pegged, pegging concludes
             if (!(this.canHumanPeg()) && !(this.canBotPeg())) {
-                if (this.goStop) this.aiScore++;
-                else this.playerScore++;
+                if (this.goStop) this.increaseAIScore(1);
+                else this.increasePlayerScore(1);
                 this.gameFlowing = false;
                 this.goStop = false;
-                this.currentState = GameState.SCORING;
+                if (this.currentState !== GameState.GAMEOVER) this.currentState = GameState.SCORING;
                 return;
             }
             // If it was a go because of the human, it's a point for the bot and human now plays
             if (this.goStop) {
-                this.aiScore++;
+                this.increaseAIScore(1);
                 this.goStop = false;
             } 
             // Otherwise, a go for the human and the bot shall play next
             else {
-                this.playerScore++;
+                this.increasePlayerScore(1);
                 this.botPeg(); // i think this gets null caught @botPeg()
                 if (!this.canHumanPeg()) {
                     while (this.canBotPeg()) {
@@ -191,38 +192,38 @@ export default class GameState {
                 }
             }
             // Somebody has cards on screen, now we figure out whose it is, count it, and display the next hand
-            else if (this.aiHand.cards.length != 0 && !this.isCribCounting()) {
+            else if (this.aiHand.cards.length !== 0 && !this.isCribCounting()) {
                 const fullHand = new Hand({...this.aiHand});
                 fullHand.addCard(this.cutCard);
-                this.aiScore += Score.handScore(fullHand);
+                this.increaseAIScore(Score.handScore(fullHand));
                 this.aiHand.clearHand();
                 this.humanHand.cards = this.humanHand.cardsHidden;
             }
             else if (!this.isCribCounting()) {
                 const fullHand = new Hand({...this.humanHand});
                 fullHand.addCard(this.cutCard);
-                this.playerScore += Score.handScore(fullHand);
+                this.increasePlayerScore(Score.handScore(fullHand));
                 this.humanHand.clearHand();
                 this.aiHand.cards = this.aiHand.cardsHidden;
             }
             // Once both hidden cards have been cleared due to clearHand(), we're now on the crib.
             if (this.isCribCounting()) {
                 // If their hidden cards are gone, and they have cards, we count the crib (2nd pass)
-                if (this.humanHand.cards.length != 0 || this.aiHand.cards.length != 0) {
+                if (this.humanHand.cards.length !== 0 || this.aiHand.cards.length !== 0) {
                     if (this.humanCrib) {
                         const fullHand = new Hand({...this.humanHand});
                         fullHand.addCard(this.cutCard);
-                        this.playerScore += Score.handScore(fullHand);
+                        this.increasePlayerScore(Score.handScore(fullHand));
                         this.humanHand.clearHand();
                     }
                     else {
                         const fullHand = new Hand({...this.aiHand});
                         fullHand.addCard(this.cutCard);
-                        this.aiScore += Score.handScore(fullHand);
+                        this.increaseAIScore(Score.handScore(fullHand));
                         this.aiHand.clearHand();
                     }
                     // All counting has completed, we now move into a new round
-                    this.currentState = GameState.ROUNDOVER;
+                    if (this.currentState !== GameState.GAMEOVER) this.currentState = GameState.ROUNDOVER;
                 }
                 // Display the crib cards (1st pass)
                 else {
@@ -237,12 +238,30 @@ export default class GameState {
             this.gameFlowing = false;
         }
 
+        // If the round has ended, begin a new one with the correct crib
         else if (this.currentState === GameState.ROUNDOVER) {
             if (this.gameFlowing) {
                 this.humanCrib = !this.humanCrib;
                 this.newDeal(this.humanCrib);
             }
         }
+
+        // If the game has concluded, and the continue button has been pressed, begin a new game
+        else if (this.currentState === GameState.GAMEOVER) {
+            this.startGame();
+        }
+    }
+
+    // Increases the player's score by the specified amount and checks for gameover
+    increasePlayerScore(amount) {
+        this.playerScore += amount;
+        if (this.playerScore >= 120) this.currentState = GameState.GAMEOVER;
+    }
+
+    // Increases the AI's score by the specified amount and checks for gameover
+    increaseAIScore(amount) {
+        this.aiScore += amount;
+        if (this.aiScore >= 120) this.currentState = GameState.GAMEOVER;
     }
 
     // Handles when a bot is supposed to peg
@@ -272,11 +291,11 @@ export default class GameState {
     // Returns correct score header for state of the game
     generateScoreHeader() {
         if (this.isCribCounting()) {
-            if (this.aiHand.cards.length != 0) return "AI's Crib Score";
+            if (this.aiHand.cards.length !== 0) return "AI's Crib Score";
             else return "Player's Crib Score"
         }
         else {
-            if (this.aiHand.cards.length != 0) return "AI's Hand Score";
+            if (this.aiHand.cards.length !== 0) return "AI's Hand Score";
             else return "Player's Hand Score";
         }
     }
@@ -284,7 +303,7 @@ export default class GameState {
     // Returns correct score body for state of game
     generateScoreBody() {
         // If AI is counting:
-        if (this.aiHand.cards.length != 0) {
+        if (this.aiHand.cards.length !== 0) {
             const fullHand = new Hand({...this.aiHand});
             let returnString = "";
             fullHand.addCard(this.cutCard);
@@ -322,5 +341,21 @@ export default class GameState {
             returnString = returnString + "\n Total Points: " + Score.handScore(fullHand);
             return returnString;
         }
+    }
+
+    // Returns the header when game is over
+    generateGameOverHeader() {
+        if (this.aiScore >= this.playerScore) return "AI Wins!";
+        else return "Player Wins!";
+    }
+
+    // Returns the body when game is over
+    generateGameOverBody() {
+        let returnString = ""
+        if (this.aiScore >= this.playerScore) {
+            returnString += "AI: " + this.aiScore + " - " + "Player: " + this.playerScore;
+        }
+        else returnString += "Player: " + this.playerScore + " - " + "AI: " + this.aiScore;
+        return returnString;
     }
 }

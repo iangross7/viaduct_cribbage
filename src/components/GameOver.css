@@ -1,0 +1,19 @@
+.game-over {
+    position: absolute;
+    background-color: red;
+    color: white;
+    width: 50%;
+    height: 40%;
+    top: 30%;
+    left: 25%
+}
+
+h2 {
+    text-align: center;
+    font-size: 200%;
+}
+
+h3 {
+    text-align: center;
+    font-size: 150%
+}

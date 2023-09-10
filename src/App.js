@@ -12,6 +12,8 @@ import ScoreBoard from "./components/ScoreBoard.js"
 import HandContinue from './components/HandContinue.js';
 import HandScore from './components/HandScore.js';
 
+import GameOver from './components/GameOver.js';
+
 import GameState from "./gameLogic/gameState.js";
 
 import './App.css';
@@ -64,6 +66,7 @@ function App() {
       <div className='hand-score-container'>
         <HandScore gameState={gameState}/>
       </div>
+      <GameOver gameState={gameState}/>
       <HandContinue onClick={handleContinuePressed} gameState={gameState}/>
     </div>
   ); 
