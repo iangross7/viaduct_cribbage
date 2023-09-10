@@ -10,6 +10,7 @@ export default class GameState {
     static CRIBBING = "cribbing";
     static PEGGING = "pegging";
     static SCORING = "scoring";
+    static ROUNDOVER = "roundover";
 
     constructor({deck = new Deck(), humanHand = new Hand(), aiHand = new Hand(), cribHand = new Hand(), 
         cutCard = new Card('Back', 'S', 0), peggingHand = new Hand(), pegScore = 0, goStop = false,
@@ -177,8 +178,9 @@ export default class GameState {
             }
         }
 
-        // Scoring continue TODO: add second to count
+        // Scoring Continue
         else if (this.currentState === GameState.SCORING) {
+            // When nobody has cards on screen, the opposite of crib should count first
             if (this.aiHand.cards.length === 0 && this.humanHand.cards.length === 0) {
                 if (this.humanCrib) {
                     this.aiHand.cards = this.aiHand.cardsHidden;
@@ -186,8 +188,56 @@ export default class GameState {
                 else {
                     this.humanHand.cards = this.humanHand.cardsHidden;
                 }
-                this.gameFlowing = false;
             }
+            // Somebody has cards on screen, now we figure out whose it is, count it, and display the next hand
+            else if (this.aiHand.cards.length != 0 && !this.isCribCounting()) {
+                const fullHand = new Hand({...this.aiHand});
+                fullHand.addCard(this.cutCard);
+                this.aiScore += Score.handScore(fullHand);
+                this.aiHand.clearHand();
+                this.humanHand.cards = this.humanHand.cardsHidden;
+            }
+            else if (!this.isCribCounting()) {
+                const fullHand = new Hand({...this.humanHand});
+                fullHand.addCard(this.cutCard);
+                this.playerScore += Score.handScore(fullHand);
+                this.humanHand.clearHand();
+                this.aiHand.cards = this.aiHand.cardsHidden;
+            }
+            // Once both hidden cards have been cleared due to clearHand(), we're now on the crib.
+            if (this.isCribCounting()) {
+                // If their hidden cards are gone, and they have cards, we count the crib (2nd pass)
+                if (this.humanHand.cards.length != 0 || this.aiHand.cards.length != 0) {
+                    if (this.humanCrib) {
+                        const fullHand = new Hand({...this.humanHand});
+                        fullHand.addCard(this.cutCard);
+                        this.playerScore += Score.handScore(fullHand);
+                        this.humanHand.clearHand();
+                    }
+                    else {
+                        const fullHand = new Hand({...this.aiHand});
+                        fullHand.addCard(this.cutCard);
+                        this.aiScore += Score.handScore(fullHand);
+                        this.aiHand.clearHand();
+                    }
+                    // All counting has completed, we now move into a new round
+                    this.currentState = GameState.ROUNDOVER;
+                }
+                // Display the crib cards (1st pass)
+                else {
+                    if (this.humanCrib) {
+                        this.humanHand.cards = this.cribHand.cards;
+                    }
+                    else {
+                        this.aiHand.cards = this.cribHand.cards;
+                    }
+                } 
+            }
+            this.gameFlowing = false;
+        }
+
+        else if (this.currentState === GameState.ROUNDOVER) {
+
         }
     }
 
@@ -198,6 +248,10 @@ export default class GameState {
         this.aiScore += Peg.pegPoints(aiCard, this.peggingHand, this.pegScore);
         this.peggingHand.addCard(this.aiHand.playCard(aiCard.id));
         this.pegScore += aiCard.value;
+    }
+
+    isCribCounting() {
+        return ((this.aiHand.cardsHidden.length === 0) && (this.humanHand.cardsHidden.length === 0))
     }
 
     // Returns true if a human is able to peg, false otherwise
@@ -212,18 +266,20 @@ export default class GameState {
 
     // Returns correct score header for state of the game
     generateScoreHeader() {
-        // If it's the human crib and he isn't to count, ai is counting
-        if ((this.humanCrib && this.humanHand.cards.length === 0) || (!this.humanCrib && this.aiHand.cards.length !== 0)) {
-            return "AI's Hand Score";
+        if (this.isCribCounting()) {
+            if (this.aiHand.cards.length != 0) return "AI's Crib Score";
+            else return "Player's Crib Score"
         }
-        // Human is counting
-        else return "Player's Hand Score";
+        else {
+            if (this.aiHand.cards.length != 0) return "AI's Hand Score";
+            else return "Player's Hand Score";
+        }
     }
 
     // Returns correct score body for state of game
     generateScoreBody() {
         // If AI is counting:
-        if ((this.humanCrib && this.humanHand.cards.length === 0) || (!this.humanCrib && this.aiHand.cards.length !== 0)) {
+        if (this.aiHand.cards.length != 0) {
             const fullHand = new Hand({...this.aiHand});
             let returnString = "";
             fullHand.addCard(this.cutCard);
