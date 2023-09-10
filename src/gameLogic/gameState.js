@@ -42,8 +42,8 @@ export default class GameState {
 
     // Begins Game 
     startGame() {
-        this.playerScore = 110;
-        this.aiScore = 110;
+        this.playerScore = 0;
+        this.aiScore = 0;
         this.newDeal(this.humanCrib);
     }
 
@@ -148,8 +148,6 @@ export default class GameState {
             // Reset the pegging hand for a clear go
             this.peggingHand.clearHand();
             this.pegScore = 0;
-            console.log(this.canHumanPeg());
-            console.log(this.canBotPeg());
             // If no cards are left to be pegged, pegging concludes
             if (!(this.canHumanPeg()) && !(this.canBotPeg())) {
                 if (this.goStop) this.increaseAIScore(1);
