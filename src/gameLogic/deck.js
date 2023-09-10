@@ -1,5 +1,6 @@
 import Card from './card.js';
 
+// IDs to coordinate with SVG files
 const IDS = [
     'C2',
     'C3',
@@ -60,6 +61,7 @@ export default class Deck {
         this.cards = cards;
     }
 
+    // shuffles cards using fisher-yates algorithm
     shuffle() {
         this.cards = createDeck();
         for (let i = this.cards.length - 1; i > 0; i--) {
@@ -70,6 +72,7 @@ export default class Deck {
         }
     }
 
+    // takes first card off the top to deal
     dealCard() {
         return this.cards.pop();
     }

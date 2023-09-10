@@ -25,15 +25,16 @@ export default class GameState {
         this.pegScore = pegScore; // pegging infromation
         this.peggingHand = peggingHand;
 
-        this.cutCard = cutCard;
+        this.cutCard = cutCard; // cut card object
 
-        this.playerScore = playerScore;
+        this.playerScore = playerScore; // score information
         this.aiScore = aiScore;
+
         this.humanCrib = humanCrib; // true if user crib, false if ai crib
 
         this.currentState = currentState; // state of the game
         this.gameFlowing = gameFlowing; // true for go, false for stopped
-        this.goStop = goStop; // true for goStop, false for noGoStop (player's go)
+        this.goStop = goStop; // true for go because of human, false for noGoStop (ai's go)
 
         if (currentState === GameState.START) this.startGame();
     }
@@ -130,13 +131,12 @@ export default class GameState {
     }
 
     continue() {
-        this.gameFlowing = true;
+        this.gameFlowing = true; // continues the game
 
         // Crib continue into pegging
         if (this.currentState === GameState.CRIBBING) {
             this.currentState = GameState.PEGGING;
             this.cut();
-            console.log(this.aiHand);
             if (this.humanCrib) {
                 this.botPeg();
             }
@@ -154,6 +154,7 @@ export default class GameState {
                 if (this.goStop) this.aiScore++;
                 else this.playerScore++;
                 this.gameFlowing = false;
+                this.goStop = false;
                 this.currentState = GameState.SCORING;
                 return;
             }
@@ -165,7 +166,7 @@ export default class GameState {
             // Otherwise, a go for the human and the bot shall play next
             else {
                 this.playerScore++;
-                this.botPeg();
+                this.botPeg(); // i think this gets null caught @botPeg()
                 if (!this.canHumanPeg()) {
                     while (this.canBotPeg()) {
                         this.botPeg();
@@ -237,7 +238,10 @@ export default class GameState {
         }
 
         else if (this.currentState === GameState.ROUNDOVER) {
-
+            if (this.gameFlowing) {
+                this.humanCrib = !this.humanCrib;
+                this.newDeal(this.humanCrib);
+            }
         }
     }
 
@@ -250,6 +254,7 @@ export default class GameState {
         this.pegScore += aiCard.value;
     }
 
+    // To determine if the crib is currently being counted
     isCribCounting() {
         return ((this.aiHand.cardsHidden.length === 0) && (this.humanHand.cardsHidden.length === 0))
     }
