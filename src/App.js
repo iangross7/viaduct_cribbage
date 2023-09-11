@@ -9,6 +9,7 @@ import PeggingCount from './components/PeggingCount.js';
 import CutCard from './components/CutCard.js';
 import ScoreBoard from "./components/ScoreBoard.js"
 
+import InformationText from './components/InformationText.js';
 import HandContinue from './components/HandContinue.js';
 import HandScore from './components/HandScore.js';
 
@@ -51,6 +52,7 @@ function App() {
           dropZone={dropZoneRef}
         />
       </div>
+      <InformationText gameState={gameState}/>
       <div className='cut-container'>
         <CutCard gameState={gameState}/>
       </div>
