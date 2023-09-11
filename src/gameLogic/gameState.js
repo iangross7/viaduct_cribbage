@@ -104,7 +104,7 @@ export default class GameState {
                 if (Peg.canCardBePlayed(this.humanHand.findCardByID(cardID), this.pegScore)) {
                     // Play it and update values accordingly
                     const playedCard = this.humanHand.playCard(cardID);
-                    this.playerScore += Peg.pegPoints(playedCard, this.peggingHand, this.pegScore);
+                    this.increasePlayerScore(Peg.pegPoints(playedCard, this.peggingHand, this.pegScore))
                     this.peggingHand.addCard(playedCard);
                     this.pegScore += playedCard.value;  
 
@@ -266,7 +266,7 @@ export default class GameState {
     botPeg() {
         let aiCard = Bot.botPeg(this.aiHand, this.peggingHand, this.pegScore);
         if (aiCard === null) return;
-        this.aiScore += Peg.pegPoints(aiCard, this.peggingHand, this.pegScore);
+        this.increaseAIScore(Peg.pegPoints(aiCard, this.peggingHand, this.pegScore));
         this.peggingHand.addCard(this.aiHand.playCard(aiCard.id));
         this.pegScore += aiCard.value;
     }
@@ -351,9 +351,9 @@ export default class GameState {
     generateGameOverBody() {
         let returnString = ""
         if (this.aiScore >= this.playerScore) {
-            returnString += "AI: " + this.aiScore + " - " + "Player: " + this.playerScore;
+            returnString += "AI: " + this.aiScore + " - Player: " + this.playerScore;
         }
-        else returnString += "Player: " + this.playerScore + " - " + "AI: " + this.aiScore;
+        else returnString += "Player: " + this.playerScore + " - AI: " + this.aiScore;
         return returnString;
     }
 }

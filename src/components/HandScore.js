@@ -6,7 +6,7 @@ export default function HandScore(props) {
     let header = '';
     let body = '';
     let visibility = 'none';
-    if (gameState.currentState === GameState.SCORING) {
+    if (gameState.currentState === GameState.SCORING && (gameState.aiHand.cards.length !== 0 || gameState.humanHand.cards.length !== 0)) {
         visibility = 'inline-block';
         header = gameState.generateScoreHeader();
         body = gameState.generateScoreBody();

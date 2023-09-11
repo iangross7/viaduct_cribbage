@@ -1,10 +1,10 @@
 body {
   background-color: #388f36;
+  user-select: none; /*Disables users from highlighting text and bugging the game*/
   margin: 0;
-  overflow: hidden;
+  overflow: hidden; /*Rigid body to better space items.*/
   height: 100vh;
   width: 100vw;
-  /*Rigid body to better space items.*/
 }
 
 .app-container {
