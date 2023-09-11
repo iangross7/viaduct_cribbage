@@ -54,6 +54,7 @@ export default class GameState {
         this.humanHand.clearHand();
         this.cribHand.clearHand();
         this.peggingHand.clearHand();
+        this.pegScore = 0;
 
         this.cutCard = new Card('Back', 'S', 0);
 
@@ -193,14 +194,14 @@ export default class GameState {
             else if (this.aiHand.cards.length !== 0 && !this.isCribCounting()) {
                 const fullHand = new Hand({...this.aiHand});
                 fullHand.addCard(this.cutCard);
-                this.increaseAIScore(Score.handScore(fullHand));
+                this.increaseAIScore(Score.handScore(fullHand) + Score.calculateKnobsPoints(this.aiHand, this.cutCard));
                 this.aiHand.clearHand();
                 this.humanHand.cards = this.humanHand.cardsHidden;
             }
             else if (!this.isCribCounting()) {
                 const fullHand = new Hand({...this.humanHand});
                 fullHand.addCard(this.cutCard);
-                this.increasePlayerScore(Score.handScore(fullHand));
+                this.increasePlayerScore(Score.handScore(fullHand) + Score.calculateKnobsPoints(this.humanHand, this.cutCard));
                 this.humanHand.clearHand();
                 this.aiHand.cards = this.aiHand.cardsHidden;
             }
@@ -211,13 +212,13 @@ export default class GameState {
                     if (this.humanCrib) {
                         const fullHand = new Hand({...this.humanHand});
                         fullHand.addCard(this.cutCard);
-                        this.increasePlayerScore(Score.handScore(fullHand));
+                        this.increasePlayerScore(Score.handScore(fullHand) + Score.calculateKnobsPoints(this.humanHand, this.cutCard));
                         this.humanHand.clearHand();
                     }
                     else {
                         const fullHand = new Hand({...this.aiHand});
                         fullHand.addCard(this.cutCard);
-                        this.increaseAIScore(Score.handScore(fullHand));
+                        this.increaseAIScore(Score.handScore(fullHand) + Score.calculateKnobsPoints(this.aiHand, this.cutCard));
                         this.aiHand.clearHand();
                     }
                     // All counting has completed, we now move into a new round
@@ -317,7 +318,10 @@ export default class GameState {
             if (Score.calculateSuitPoints(fullHand) !== 0) {
                 returnString = returnString + "\n Points from Flush: " +  Score.calculateSuitPoints(fullHand);
             }
-            returnString = returnString + "\n Total Points: " + Score.handScore(fullHand);
+            if (Score.calculateKnobsPoints(this.aiHand, this.cutCard) !== 0) {
+                returnString = returnString + "\n Points from Knobs: " +  Score.calculateKnobsPoints(this.aiHand, this.cutCard);
+            }
+            returnString = returnString + "\n Total Points: " + (Score.handScore(fullHand) +  Score.calculateKnobsPoints(this.aiHand, this.cutCard)) ;
             return returnString;
         }
         else {
@@ -336,7 +340,10 @@ export default class GameState {
             if (Score.calculateSuitPoints(fullHand) !== 0) {
                 returnString = returnString + "\n Points from Flush: " +  Score.calculateSuitPoints(fullHand);
             }
-            returnString = returnString + "\n Total Points: " + Score.handScore(fullHand);
+            if (Score.calculateKnobsPoints(this.humanHand, this.cutCard) !== 0) {
+                returnString = returnString + "\n Points from Knobs: " +  Score.calculateKnobsPoints(this.humanHand, this.cutCard);
+            }
+            returnString = returnString + "\n Total Points: " + (Score.handScore(fullHand) + Score.calculateKnobsPoints(this.humanHand, this.cutCard));
             return returnString;
         }
     }

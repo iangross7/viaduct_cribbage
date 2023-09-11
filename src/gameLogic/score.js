@@ -13,6 +13,16 @@ export default class Score {
         return points;
     }
 
+    // Finds total points from knobs
+    static calculateKnobsPoints(hand, cutCard) {
+        let points = 0;
+        hand.cards.forEach(e => {
+            if (e.suit === cutCard.suit && e.order === 11) points = 2;
+        })
+        return points;
+    }
+
+    // Finds total points from fifteens
     static calculateFifteenPoints(hand) {
         const handVals = hand.cards.map(c => c.value);
 
@@ -34,6 +44,7 @@ export default class Score {
         return result.length * 2;
     }
 
+    // Finds total points from runs 
     static calculateRunPoints(hand) {
         const handOrder = hand.cards.map(c => c.order);
         const sortedHand = [...handOrder].sort();
@@ -83,6 +94,7 @@ export default class Score {
         return runCount * dupeFactor;
     }
 
+    // Finds total points from flush
     static calculateSuitPoints(hand) {
         const handSuits = hand.cards.map(c => c.suit);
         const sortedSuits = [...handSuits].sort();
@@ -96,6 +108,7 @@ export default class Score {
         return 0;
     }
 
+    // Finds total points from pairs
     static calculatePairPoints(hand) {
         const handOrder = hand.cards.map(c => c.order);
         const sortedHand = [...handOrder].sort();
