@@ -17,7 +17,7 @@ export default class Score {
     static calculateKnobsPoints(hand, cutCard) {
         let points = 0;
         hand.cards.forEach(e => {
-            if (e.suit === cutCard.suit && e.order === 11) points = 2;
+            if (e.suit === cutCard.suit && e.order === 11) points = 1;
         })
         return points;
     }
@@ -47,7 +47,7 @@ export default class Score {
     // Finds total points from runs 
     static calculateRunPoints(hand) {
         const handOrder = hand.cards.map(c => c.order);
-        const sortedHand = [...handOrder].sort();
+        const sortedHand = [...handOrder].sort((a, b) => a - b);
         const uniqueHand = [];
         sortedHand.forEach(element => {
             if (!uniqueHand.includes(element)) uniqueHand.push(element);
@@ -111,7 +111,7 @@ export default class Score {
     // Finds total points from pairs
     static calculatePairPoints(hand) {
         const handOrder = hand.cards.map(c => c.order);
-        const sortedHand = [...handOrder].sort();
+        const sortedHand = [...handOrder].sort((a, b) => a - b);
         let pairPoints = 0;
 
         for (let i = 0; i < sortedHand.length - 1; i++) {

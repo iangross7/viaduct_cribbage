@@ -6,17 +6,31 @@ export default function InformationText(props) {
     let text = '';
     if (gameState.currentState === GameState.CRIBBING) {
         if (gameState.humanCrib) {
-            text = 'It\'s your crib. Place two cards in the center.'
-        }
-        else {
-            text = 'It\'s the AI\'s Crib. Place two cards in the center.'
-        }
-        if (gameState.aiScore === 0 && gameState.playerScore === 0) {
-            text += ' First to 120 points wins. Good luck!'
-        }
+            text = (
+              <span>
+                It's <strong style={{color: 'red'}}>your crib</strong>. Place two cards in the center.
+              </span>
+            );
+          } else {
+            text = (
+              <span>
+                It's the <strong style={{color: 'red'}}>AI's crib</strong>. Place two cards in the center.
+              </span>
+            );
+          }
+          if (gameState.aiScore === 0 && gameState.playerScore === 0) {
+            text = (
+              <span>
+                {text} First to 120 points wins. Good luck!
+              </span>
+            );
+          }
     }
     else if (gameState.currentState === GameState.PEGGING) {
-        text = "Place your card in the center to play for peg. AI is so smart it will instantly play back."
+        text = "Play your card in the center."
+        if (gameState.aiScore === 0 && gameState.playerScore === 0) {
+          text += " AI is smart and will instantly play back. Pegging points automatically tallied."
+        }
     }
     else if (gameState.currentState === GameState.SCORING && gameState.aiHand.cards.length === 0 && gameState.humanHand.cards.length === 0) {
         text = "Now entering the hand scoring phase. Press continue to begin."
@@ -30,7 +44,7 @@ export default function InformationText(props) {
 
     return (
         <div className="information-text">
-            <p>{text}</p>
+            <p style={{whiteSpace: 'pre-line'}}>{text}</p>
         </div>
     );
 }
