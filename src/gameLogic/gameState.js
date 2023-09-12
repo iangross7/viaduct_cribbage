@@ -256,13 +256,13 @@ export default class GameState {
     // Increases the player's score by the specified amount and checks for gameover
     increasePlayerScore(amount) {
         this.playerScore += amount;
-        if (this.playerScore >= 120) this.currentState = GameState.GAMEOVER;
+        if (this.playerScore >= 121) this.currentState = GameState.GAMEOVER;
     }
 
     // Increases the AI's score by the specified amount and checks for gameover
     increaseAIScore(amount) {
         this.aiScore += amount;
-        if (this.aiScore >= 120) this.currentState = GameState.GAMEOVER;
+        if (this.aiScore >= 121) this.currentState = GameState.GAMEOVER;
     }
 
     // Handles when a bot is supposed to peg

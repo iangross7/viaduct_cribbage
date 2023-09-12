@@ -21,7 +21,7 @@ export default function InformationText(props) {
           if (gameState.aiScore === 0 && gameState.playerScore === 0) {
             text = (
               <span>
-                {text} First to 120 points wins. Good luck!
+                {text} First to 121 points wins. Good luck!
               </span>
             );
           }
@@ -30,6 +30,12 @@ export default function InformationText(props) {
         text = "Play your card in the center."
         if (gameState.aiScore === 0 && gameState.playerScore === 0) {
           text += " AI is smart and will instantly play back. Pegging points automatically tallied."
+        }
+        if (gameState.gameFlowing === false && gameState.goStop === true) {
+          text = "Press go to give your go."
+        }
+        else if (gameState.gameFlowing === false && gameState.goStop === false) {
+          text = "Press go to recieve AI's go."
         }
     }
     else if (gameState.currentState === GameState.SCORING && gameState.aiHand.cards.length === 0 && gameState.humanHand.cards.length === 0) {

@@ -1,15 +1,19 @@
 .hand-button {
     position: absolute;
     top: 65%;
-    left: 44%;
-    background-color: #4287f5;
-    border: 2px;
-    color: white;
-    padding: 0.5% 3%;
+    left: 45%;
+    width: 10%;
+    height: 4.5%;
+    border-radius: 6px;
+    border: 2px solid white;
+    background-color: white;
+    transition-duration: 0.4s;
+    color: black;
 }
 
 .hand-button:hover {
-    background-color: #315fa8;
+    background-color: transparent;
+    color:white;
 }
 
 .hand-button:active {

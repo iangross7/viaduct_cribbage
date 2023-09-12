@@ -27,12 +27,11 @@ body {
 }
 
 .drop-zone {
-  width: 30%;
-  height: 20%;
-  background-color: #494b4d;
+  width: 35%;
+  height: 25%;
   position: absolute;
   top: 40%;
-  left: 34.6%;
+  left: 32.2%;
 }
 
 .cut-container {
@@ -40,24 +39,22 @@ body {
   position: absolute;
   width: 10%;
   height: 25%;
-  top: 27%;
-  left: 5%;
+  top: 27.2%;
+  left: 6%;
 }
 
 .human-score-container {
-  background-color: #494b4d;
   position: absolute;
   width: 18%;
   height: 15%;
-  top: 6%;
+  top: 5%;
   left: 3%
 }
 
 .ai-score-container {
-  background-color: #494b4d;
   position: absolute;
   width: 18%;
   height: 15%;
-  top: 6%;
+  top: 5%;
   left: 79%;
 }

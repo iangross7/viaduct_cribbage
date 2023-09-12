@@ -8,10 +8,15 @@ export default function HandContinue(props) {
 
     let visibility = 'inline-block';
     let text = 'Continue';
+
     if (gameFlowing) visibility = 'none';
     if (gameState.currentState === GameState.PEGGING) {
-        if (goStop) text = 'Go';
-        else text = 'AI\'s Go'
+        if (goStop) {
+            text = 'Go';
+        }
+        else {
+            text = 'AI\'s Go';
+        }
     }
     if (gameState.currentState === GameState.GAMEOVER) text = 'New Game';
 
