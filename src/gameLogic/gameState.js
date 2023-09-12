@@ -247,6 +247,8 @@ export default class GameState {
 
         // If the game has concluded, and the continue button has been pressed, begin a new game
         else if (this.currentState === GameState.GAMEOVER) {
+            if (this.playerScore > this.aiScore) this.humanCrib = false;
+            else this.humanCrib = true; // loser gets crib on next start of game
             this.startGame();
         }
     }

@@ -8,8 +8,9 @@ export default function PeggingCount(props) {
     if (isPegging) visibility = 'inline-block';
 
     return (
-        <div className="count" style={{display: visibility}}>
-            Pegging Count: {peggingCount}
+        <div className="count" style={{display: visibility, textAlign: 'center'}}>
+            <p style={{marginBottom: '0.5%'}}>Pegging Count:</p>
+            <p style={{fontSize: '400%', margin: '0.1% 0'}}>{peggingCount}</p>
         </div>
     );
 }
