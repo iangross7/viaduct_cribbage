@@ -94,17 +94,17 @@ export default class Score {
         return runCount * dupeFactor;
     }
 
-    // Finds total points from flush
+    // Finds total points from flush, need all 4 cards originally to count.
     static calculateSuitPoints(hand) {
         const handSuits = hand.cards.map(c => c.suit);
-        const sortedSuits = [...handSuits].sort();
 
-        for (let i = 0; i < sortedSuits.length - 3; i++) {
-            if (sortedSuits[i] === sortedSuits[i+1] && sortedSuits[i] === sortedSuits[i+2] && sortedSuits[i] === sortedSuits[i+3]) {
-                if (sortedSuits.length >= 5 && sortedSuits[i] === sortedSuits[i+4]) return 5;
+        if (handSuits.length >= 4) {
+            if (handSuits[0] === handSuits[1] && handSuits[0] === handSuits[2] && handSuits[0] === handSuits[3]) {
+                if (handSuits.length >= 5 && handSuits[0] === handSuits[4]) return 5;
                 else return 4;
             }
         }
+
         return 0;
     }
 
