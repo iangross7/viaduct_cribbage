@@ -1,8 +1,10 @@
 .count {
-    color: white;
+    border-radius: 10%;
+    background-color: white;
+    color: black;
     position: absolute;
-    width: 10%;
-    height: 22%;
-    top: 39%; 
-    left: 19%;
+    width: 9.2%;
+    height: 20%;
+    top: 40%; 
+    left: 22%;
 }
