@@ -1,6 +1,6 @@
 @font-face {
-    font-family: "Nanum";
-    src: url(../fonts/NanumGothicCoding-Bold.woff2) format('woff2');
+    font-family: "Victor";
+    src: url(../fonts/VictorMono-Regular.woff2) format('woff2');
 }
 
 .start-screen-container {
@@ -12,6 +12,86 @@
 }
 
 .start-title {
-    font-family: "Nanum", sans-serif;
-    top: 50%;
+    position: absolute;
+    font-family: "Victor", sans-serif;
+    font-size: 400%;
+    top: 30%;
+    left: 30%;
+}
+
+.rules-blurb {
+    position: absolute;
+    font-family: "Victor", sans-serif;
+    top: 70%;
+    left: 5%;
+}
+
+.rules-button {
+    font-family: "Victor", sans-serif;
+    font-size: 100%;
+    background-color: white;
+    border: 2px solid white;
+    transition-duration: 0.4s;
+    position: absolute;
+    top: 77%;
+    left: 8.3%;
+}
+
+.rules-button:hover {
+    background-color: transparent;
+    color:white;
+}
+
+.rules-button:active {
+    transition-duration: 0.05s;
+    background-color: white;
+}
+
+.source-blurb {
+    font-family: "Victor", sans-serif;
+    position: absolute;
+    top: 70%;
+    left: 77.2%;
+}
+
+.source-button {
+    font-family: "Victor", sans-serif;
+    font-size: 100%;
+    background-color: white;
+    border: 2px solid white;
+    transition-duration: 0.4s;
+    position: absolute;
+    top: 77%;
+    left: 81.5%;
+}
+
+.source-button:hover {
+    background-color: transparent;
+    color:white;
+}
+
+.source-button:active {
+    transition-duration: 0.05s;
+    background-color: white;
+}
+
+.start-button {
+    font-family: "Victor", sans-serif;
+    font-size: 150%;
+    background-color: white;
+    border: 2px solid white;
+    transition-duration: 0.4s;
+    position: absolute;
+    top: 52%;
+    left: 44.5%;
+}
+
+.start-button:hover {
+    background-color: transparent;
+    color:white;
+}
+
+.start-button:active {
+    transition-duration: 0.05s;
+    background-color: white;
 }

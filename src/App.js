@@ -74,7 +74,7 @@ function App() {
       </div>
       <HandContinue onClick={handleContinuePressed} gameState={gameState}/>
       <JackCut gameState={gameState}/>
-      {/* <SplashScreen /> */}
+      <SplashScreen />
     </div>
   ); 
 }
