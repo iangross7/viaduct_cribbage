@@ -8,6 +8,7 @@ import PeggingCount from './components/PeggingCount.js';
 
 import CutCard from './components/CutCard.js';
 import ScoreBoard from "./components/ScoreBoard.js"
+import JackCut from './components/JackCut.js';
 
 import InformationText from './components/InformationText.js';
 import HandContinue from './components/HandContinue.js';
@@ -48,6 +49,9 @@ function App() {
       <div className='upper-hand-container'>
         <AiHand gameState={gameState}/>
       </div>
+      <div className='cut-container'>
+        <CutCard gameState={gameState}/>
+      </div>
       <div className='lower-hand-container'>
       <HumanHand 
           gameState={gameState} 
@@ -56,9 +60,6 @@ function App() {
         />
       </div>
       <InformationText gameState={gameState}/>
-      <div className='cut-container'>
-        <CutCard gameState={gameState}/>
-      </div>
       <div className='peg-point-container'>
         <PeggingCount gameState={gameState}/>
       </div>
@@ -72,6 +73,7 @@ function App() {
         <HandScore gameState={gameState}/>
       </div>
       <HandContinue onClick={handleContinuePressed} gameState={gameState}/>
+      <JackCut gameState={gameState}/>
       {/* <SplashScreen /> */}
     </div>
   ); 

@@ -1,0 +1,11 @@
+.jack-cut-container {
+    text-align: center;
+    border-radius: 10%;
+    position: absolute;
+    width: 7%;
+    height: 14%;
+    background-color: red;
+    color: white;
+    top: 18%;
+    left: 78%;
+}
