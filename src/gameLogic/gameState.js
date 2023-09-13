@@ -90,7 +90,9 @@ export default class GameState {
 
             // Cribbing State
             if (this.currentState === GameState.CRIBBING) {
-                if (this.cribHand.cards.length < 2) this.cribHand.addCard(this.humanHand.fullPlayCard(cardID));
+                let playedCard = this.humanHand.fullPlayCard(cardID);
+                if (this.cribHand.cards.length < 2) this.cribHand.addCard(playedCard);
+                this.peggingHand.addCard(playedCard);
                 if (this.cribHand.cards.length === 2) {
                     const discardCards = Bot.botCribDiscard(this.aiHand);
                     discardCards.forEach(element => {
@@ -126,7 +128,7 @@ export default class GameState {
                     else {
                         if (!this.canHumanPeg()) this.gameFlowing = false;
                     }
-                
+                    if (this.currentState === GameState.GAMEOVER) this.gameFlowing = false;
                 }
             }
         }
@@ -137,11 +139,13 @@ export default class GameState {
 
         // Crib continue into pegging
         if (this.currentState === GameState.CRIBBING) {
+            this.peggingHand.clearHand();
             this.currentState = GameState.PEGGING;
             this.cut();
             if (this.humanCrib) {
                 this.botPeg();
             }
+            if (this.currentState === GameState.GAMEOVER) this.gameFlowing = false;
         }
 
         // Peg continue
@@ -176,7 +180,11 @@ export default class GameState {
                         this.gameFlowing = false;
                     }
                 }
+                if (this.currentState === GameState.GAMEOVER) {
+                    this.gameFlowing = false;
+                }
             }
+            if (this.currentState === GameState.GAMEOVER) this.gameFlowing = false;
         }
 
         // Scoring Continue
@@ -364,7 +372,7 @@ export default class GameState {
     // Returns the header when game is over
     generateGameOverHeader() {
         if (this.aiScore >= this.playerScore) return "AI Wins!";
-        else return "Player Wins!";
+        else return "You Win!";
     }
 
     // Returns the body when game is over

@@ -8,7 +8,7 @@ export default function InformationText(props) {
         if (gameState.humanCrib) {
             text = (
               <span>
-                It's <strong style={{color: 'red'}}>your crib</strong>. Place two cards in the center.
+                It's <strong style={{color: 'red'}}>your crib</strong>. Place two cards in the center for the crib.
               </span>
             );
           } else {

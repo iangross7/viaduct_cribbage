@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "Nanum";
+    src: url(../fonts/NanumGothicCoding-Bold.woff2) format('woff2');
+}
+
+.start-screen-container {
+    background-color: #19191a;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1;
+    color: white;
+}
+
+.start-title {
+    font-family: "Nanum", sans-serif;
+    top: 50%;
+}

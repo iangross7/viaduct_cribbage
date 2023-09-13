@@ -15,6 +15,8 @@ import HandScore from './components/HandScore.js';
 
 import GameOver from './components/GameOver.js';
 
+import SplashScreen from './components/SplashScreen.js';
+
 import GameState from "./gameLogic/gameState.js";
 
 import './App.css';
@@ -42,6 +44,7 @@ function App() {
       <div className='drop-zone' ref={dropZoneRef}>
         <PeggingDisplay gameState={gameState}/>
       </div>
+      <GameOver gameState={gameState}/>
       <div className='upper-hand-container'>
         <AiHand gameState={gameState}/>
       </div>
@@ -60,7 +63,7 @@ function App() {
         <PeggingCount gameState={gameState}/>
       </div>
       <div className='human-score-container'>
-        <ScoreBoard player='Player' score={gameState.playerScore}/>
+        <ScoreBoard player='Your' score={gameState.playerScore}/>
       </div>
       <div className='ai-score-container'>
         <ScoreBoard player='AI' score={gameState.aiScore}/>
@@ -68,8 +71,8 @@ function App() {
       <div className='hand-score-container'>
         <HandScore gameState={gameState}/>
       </div>
-      <GameOver gameState={gameState}/>
       <HandContinue onClick={handleContinuePressed} gameState={gameState}/>
+      {/* <SplashScreen /> */}
     </div>
   ); 
 }

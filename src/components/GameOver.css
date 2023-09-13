@@ -1,6 +1,11 @@
+@font-face {
+    font-family: "Oswald";
+    src: url(../fonts/Oswald-Regular.woff2) format('woff2');
+}
+
 .game-over {
     position: absolute;
-    background-color: red;
+    background-color: #19191a;
     color: white;
     width: 50%;
     height: 40%;
@@ -8,12 +13,16 @@
     left: 25%
 }
 
-h2 {
+.over-header {
     text-align: center;
-    font-size: 200%;
+    font-size: 400%;
+    margin-top: 8%;
+    margin-bottom: 1%
 }
 
-h3 {
+.over-body {
     text-align: center;
-    font-size: 150%
+    font-size: 150%;
+    margin-top: -5%;
+    font-family: "Oswald", sans-serif;
 }
