@@ -323,7 +323,6 @@ export default class GameState {
             if (Score.calculateKnobsPoints(this.aiHand, this.cutCard) !== 0) {
                 returnString = returnString + "\n Points from Knobs: " +  Score.calculateKnobsPoints(this.aiHand, this.cutCard);
             }
-            returnString = returnString + "\n Total Points: " + (Score.handScore(fullHand) +  Score.calculateKnobsPoints(this.aiHand, this.cutCard)) ;
             return returnString;
         }
         else {
@@ -345,8 +344,20 @@ export default class GameState {
             if (Score.calculateKnobsPoints(this.humanHand, this.cutCard) !== 0) {
                 returnString = returnString + "\n Points from Knobs: " +  Score.calculateKnobsPoints(this.humanHand, this.cutCard);
             }
-            returnString = returnString + "\n Total Points: " + (Score.handScore(fullHand) + Score.calculateKnobsPoints(this.humanHand, this.cutCard));
             return returnString;
+        }
+    }
+
+    generateScoreFooter() {
+        if (this.aiHand.cards.length !== 0) {
+            const fullHand = new Hand({...this.aiHand});
+            fullHand.addCard(this.cutCard);
+            return "\n Total Points: " + (Score.handScore(fullHand) +  Score.calculateKnobsPoints(this.aiHand, this.cutCard));
+        }
+        else {
+            const fullHand = new Hand({...this.humanHand});
+            fullHand.addCard(this.cutCard);
+            return "\n Total Points: " + (Score.handScore(fullHand) +  Score.calculateKnobsPoints(this.humanHand, this.cutCard));
         }
     }
 

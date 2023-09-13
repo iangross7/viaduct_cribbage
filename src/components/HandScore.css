@@ -1,8 +1,24 @@
+@font-face {
+    font-family: "Oswald";
+    src: url(../fonts/Oswald-Regular.woff2) format('woff2');
+}
+
 .hand-score {
     color: white;
     position: absolute;
     width: 18%;
     height: 40%;
     top: 36%;
-    left: 79%
+    left: 79%;
+}
+
+.score-body {
+    white-space: pre-line;
+    text-align: center;
+    margin-top: 0.1%;
+    font-size: 105%;
+}
+
+.score-footer {
+    font-size: 110%;
 }

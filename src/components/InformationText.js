@@ -29,7 +29,7 @@ export default function InformationText(props) {
     else if (gameState.currentState === GameState.PEGGING) {
         text = "Play your card in the center."
         if (gameState.aiScore === 0 && gameState.playerScore === 0) {
-          text += " AI is smart and will instantly play back. Pegging points automatically tallied."
+          text += " AI will instantly respond. Pegging points are automatically tallied."
         }
         if (gameState.gameFlowing === false && gameState.goStop === true) {
           text = "Press go to give your go."
@@ -42,7 +42,7 @@ export default function InformationText(props) {
         text = "Now entering the hand scoring phase. Press continue to begin."
     }
     else if (gameState.currentState === GameState.SCORING) {
-        text = "Breakdown of the scoring is to the right. Press continue to move on and tally the score."
+        text = "Press continue to move on and tally the score."
     }
     else if (gameState.currentState === GameState.ROUNDOVER) {
         text = "Hand scores have been tallied. Press continue to deal the next round."
