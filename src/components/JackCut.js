@@ -8,10 +8,10 @@ export default function JackCut(props) {
     if (gameState.cutCard.order === 11 && gameState.currentState === GameState.PEGGING && gameState.humanHand.cards.length === 4) {
         visiblity = 'inline-block';
         if (gameState.humanCrib) {
-            lcoord = '15%';
+            lcoord = '16%';
         }
         else {
-            lcoord = '78%';
+            lcoord = '77%';
         }
     }
 

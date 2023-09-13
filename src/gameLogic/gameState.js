@@ -42,8 +42,8 @@ export default class GameState {
 
     // Begins Game 
     startGame() {
-        this.playerScore = 0;
-        this.aiScore = 0;
+        this.playerScore = 110;
+        this.aiScore = 110;
         this.newDeal(this.humanCrib);
     }
 
