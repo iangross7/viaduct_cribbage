@@ -1,5 +1,15 @@
+@font-face {
+  font-family: "Oswald";
+  src: url(./fonts/Oswald-Regular.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url(./fonts/Roboto-Regular.woff2);
+}
+
 body {
-  background-color: #388f36;
+  background-color: #19191a;
   user-select: none; /*Disables users from highlighting text and bugging the game*/
   margin: 0;
   overflow: hidden; /*Rigid body to better space items.*/
@@ -57,4 +67,13 @@ body {
   height: 15%;
   top: 5%;
   left: 79%;
+}
+
+p {
+  font-family: "Roboto", sans-serif;
+}
+
+h2 {
+  font-family: "Oswald", sans-serif;
+  font-weight: normal;
 }

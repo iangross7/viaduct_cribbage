@@ -14,7 +14,7 @@ export default function HandScore(props) {
 
     return (
         <div className="hand-score" style={{display: visibility}}>
-            <p style={{textAlign: 'center', marginBottom: '0.1%', fontSize: '200%'}}>{header}</p>
+            <h2 style={{textAlign: 'center', marginBottom: '0.1%', fontSize: '200%'}}>{header}</h2>
             <p style={{whiteSpace: 'pre-line', textAlign: 'center', marginTop: '0.1%'}}>{body}</p>
         </div>
     );
