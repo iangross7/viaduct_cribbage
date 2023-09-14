@@ -4,11 +4,10 @@
 }
 
 .heart {
-    position: absolute;
     width: 4%;
     height: auto;
-    top: 38.5%;
-    left: 72%;
+    margin-left: 2%;
+    margin-top: 1%;
 }
 
 .start-screen-container {
@@ -19,10 +18,12 @@
     color: white;
 }
 
-.start-title {
+.start-title-container {
     position: absolute;
+    display: flex;
+    align-items: center;
     font-family: "Victor", sans-serif;
-    font-size: 400%;
+    font-size: 200%;
     top: 30%;
     left: 30%;
 }
