@@ -3,6 +3,13 @@
     src: url(../fonts/VictorMono-Regular.woff2) format('woff2');
 }
 
+.heart {
+    position: absolute;
+    transform: scale(0.05);
+    top: -47%;
+    left: 32%;
+}
+
 .start-screen-container {
     background-color: #19191a;
     height: 100vh;

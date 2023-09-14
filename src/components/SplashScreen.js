@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import heart from '../assets/heart-symbol.png';
 import './SplashScreen.css'
 
 export default function SplashScreen() {
@@ -13,6 +14,7 @@ export default function SplashScreen() {
         {show && (
             <div className="start-screen-container">
                 <h1 className='start-title'>Viaduct Cribbage</h1>
+                <img className='heart' src={heart} alt="Heart Icon" />
                 <button className='start-button' onClick={startClick}>START GAME</button>
                 <p className='rules-blurb'>Don't know how to play?</p>
                 <p className='source-blurb'>Interested in the project?</p>
