@@ -5,9 +5,10 @@
 
 .heart {
     position: absolute;
-    transform: scale(0.05);
-    top: -47%;
-    left: 32%;
+    width: 4%;
+    height: auto;
+    top: 38.5%;
+    left: 72%;
 }
 
 .start-screen-container {
@@ -44,16 +45,6 @@
     left: 8.3%;
 }
 
-.rules-button:hover {
-    background-color: transparent;
-    color:white;
-}
-
-.rules-button:active {
-    transition-duration: 0.05s;
-    background-color: white;
-}
-
 .source-blurb {
     font-family: "Victor", sans-serif;
     position: absolute;
@@ -72,16 +63,6 @@
     left: 81.5%;
 }
 
-.source-button:hover {
-    background-color: transparent;
-    color:white;
-}
-
-.source-button:active {
-    transition-duration: 0.05s;
-    background-color: white;
-}
-
 .start-button {
     font-family: "Victor", sans-serif;
     font-size: 150%;
@@ -93,12 +74,12 @@
     left: 44.5%;
 }
 
-.start-button:hover {
+.source-button:hover, .rules-button:hover, .start-button:hover {
     background-color: transparent;
     color:white;
 }
 
-.start-button:active {
+.start-button:active, .source-button:active, .rules-button:active {
     transition-duration: 0.05s;
     background-color: white;
 }
