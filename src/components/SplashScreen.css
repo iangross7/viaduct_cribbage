@@ -4,7 +4,7 @@
 }
 
 .heart {
-    width: 4%;
+    width: 2vw;
     height: auto;
     margin-left: 2%;
     margin-top: 1%;
@@ -16,16 +16,18 @@
     width: 100vw;
     z-index: 1;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .start-title-container {
-    position: absolute;
     display: flex;
+    justify-content: center;
     align-items: center;
     font-family: "Victor", sans-serif;
-    font-size: 200%;
-    top: 30%;
-    left: 30%;
+    font-size: 1.5vw;
+    white-space: nowrap;
 }
 
 .rules-blurb {
@@ -66,13 +68,14 @@
 
 .start-button {
     font-family: "Victor", sans-serif;
-    font-size: 150%;
+    font-size: 1vw;
     background-color: white;
     border: 2px solid white;
     transition-duration: 0.4s;
     position: absolute;
-    top: 52%;
-    left: 44.5%;
+    top: 55%;
+    left: 50%;
+    transform: translateX(-20%);
 }
 
 .source-button:hover, .rules-button:hover, .start-button:hover {
