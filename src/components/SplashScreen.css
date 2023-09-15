@@ -21,61 +21,76 @@
     align-items: center;
 }
 
+.start-center-container {
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 .start-title-container {
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: "Victor", sans-serif;
-    font-size: 1.5vw;
+    font-size: 2vw;
     white-space: nowrap;
+    flex-direction: row;
+}
+
+.start-button {
+    margin-top: -5%;
+    font-family: "Victor", sans-serif;
+    font-size: 2vw;
+    background-color: white;
+    border: 2px solid white;
+    transition-duration: 0.4s;
+}
+
+.rules-container {
+    position: absolute;
+    bottom: 15%;
+    left: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .rules-blurb {
-    position: absolute;
     font-family: "Victor", sans-serif;
-    top: 70%;
-    left: 5%;
+    font-size: 1.5vw;
 }
 
 .rules-button {
     font-family: "Victor", sans-serif;
-    font-size: 100%;
+    font-size: 1.5vw;
     background-color: white;
     border: 2px solid white;
     transition-duration: 0.4s;
+}
+
+.source-container {
     position: absolute;
-    top: 77%;
-    left: 8.3%;
+    bottom: 15%;
+    right: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .source-blurb {
     font-family: "Victor", sans-serif;
-    position: absolute;
-    top: 70%;
-    left: 77.2%;
+    font-size: 1.5vw;
 }
 
 .source-button {
     font-family: "Victor", sans-serif;
-    font-size: 100%;
+    font-size: 1.5vw;
     background-color: white;
     border: 2px solid white;
     transition-duration: 0.4s;
-    position: absolute;
-    top: 77%;
-    left: 81.5%;
-}
-
-.start-button {
-    font-family: "Victor", sans-serif;
-    font-size: 1vw;
-    background-color: white;
-    border: 2px solid white;
-    transition-duration: 0.4s;
-    position: relative;
-    top: 200%;
-    left: -50%;
-    transform: translateX(-20%);
 }
 
 .source-button:hover, .rules-button:hover, .start-button:hover {
