@@ -44,8 +44,9 @@
     margin-top: -5%;
     font-family: "Victor", sans-serif;
     font-size: 2vw;
-    background-color: white;
-    border: 2px solid white;
+    color: white;
+    background-color: red;
+    border: 2px solid red;
     transition-duration: 0.4s;
 }
 
@@ -58,19 +59,6 @@
     align-items: center;
 }
 
-.rules-blurb {
-    font-family: "Victor", sans-serif;
-    font-size: 1.5vw;
-}
-
-.rules-button {
-    font-family: "Victor", sans-serif;
-    font-size: 1.5vw;
-    background-color: white;
-    border: 2px solid white;
-    transition-duration: 0.4s;
-}
-
 .source-container {
     position: absolute;
     bottom: 15%;
@@ -80,12 +68,13 @@
     align-items: center;
 }
 
-.source-blurb {
+.rules-blurb, .source-blurb {
     font-family: "Victor", sans-serif;
     font-size: 1.5vw;
 }
 
-.source-button {
+.rules-button, .source-button {
+    margin-top: -3%;
     font-family: "Victor", sans-serif;
     font-size: 1.5vw;
     background-color: white;
@@ -93,12 +82,22 @@
     transition-duration: 0.4s;
 }
 
-.source-button:hover, .rules-button:hover, .start-button:hover {
+.source-button:hover, .rules-button:hover {
     background-color: transparent;
     color:white;
 }
 
-.start-button:active, .source-button:active, .rules-button:active {
+.source-button:active, .rules-button:active {
     transition-duration: 0.05s;
     background-color: white;
+}
+
+.start-button:hover {
+    background-color: transparent;
+    color: red;
+}
+
+.start-button:active {
+    background-color: red;
+    transition-duration: 0.05s
 }
