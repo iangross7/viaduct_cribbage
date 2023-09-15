@@ -72,9 +72,9 @@
     background-color: white;
     border: 2px solid white;
     transition-duration: 0.4s;
-    position: absolute;
-    top: 55%;
-    left: 50%;
+    position: relative;
+    top: 200%;
+    left: -50%;
     transform: translateX(-20%);
 }
 
