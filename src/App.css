@@ -71,11 +71,9 @@ body {
 
 p {
   font-family: "Roboto", sans-serif;
-  font-size: 1vw;
 }
 
 h2 {
   font-family: "Oswald", sans-serif;
   font-weight: normal;
-  font-size: 1vw; /*Apply to more inner css levels*/
 }
