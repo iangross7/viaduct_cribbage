@@ -59,7 +59,7 @@ export default function MoveableCard(props) {
         drag={canMove} 
         dragSnapToOrigin="true" // Returns card to original position
         onDragEnd={handleDragEnd} // Handler for when the drag completes
-        style = {{scale: 0.5}}>
+        style = {{transform: 'scale(2vw)'}}>
           {CardSVG && <CardSVG />}
       </motion.div>
     );
