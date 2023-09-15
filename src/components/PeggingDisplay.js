@@ -12,7 +12,6 @@ export default function PeggingDisplay(props) {
                     key={card.id}
                     cardID={card.id}
                     cardDisplay={card.id}
-                    cardLocation='center-card'
                     canMove = 'false'
                 />
             ))}

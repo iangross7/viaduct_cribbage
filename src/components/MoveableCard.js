@@ -1,17 +1,15 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import cardSVGs from './cardSVGs.js';
-
-
-import './MoveableCard.css';
 
 export default function MoveableCard(props) {
   const cardID = props.cardID;
   const cardDisplay = props.cardDisplay;
   const dropZoneRef = props.dropZone; // ref for dropZone
 
+  // Card Logic
   const canMove = props.canMove === 'true';
   const CardSVG = cardSVGs[cardDisplay] || null;
-  const cardLocation = props.cardLocation || 'hand-card';
 
   const handleDragEnd = (event) => {
     const dropZoneRect = dropZoneRef.current.getBoundingClientRect(); // Get drop zone's bounding rectangle
@@ -53,13 +51,42 @@ export default function MoveableCard(props) {
     }
   };
 
+  // Responsive Implementation
+  const [scaleVal, setScaleVal] = useState(0.72);
+  const [cardSpace, setCardSpace] = useState(-30);
+
+  // Updating scale for different screensizes
+  const updateScale = () => {
+    const vw = window.innerWidth;
+    if (vw <= 1175) {
+      setScaleVal(0.3);
+      setCardSpace(-81); 
+    } 
+    else if (vw <= 1666) {
+      setScaleVal(0.5);
+      setCardSpace(-56); 
+    }
+    else {
+      setScaleVal(0.72); 
+      setCardSpace(-30);
+    }
+  };
+
+  // Handles when window size changes
+  useEffect(() => {
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => {
+      window.removeEventListener('resize', updateScale);
+    };
+  }, []);
+
   return (
       <motion.div 
-        className={cardLocation}
         drag={canMove} 
         dragSnapToOrigin="true" // Returns card to original position
         onDragEnd={handleDragEnd} // Handler for when the drag completes
-        style = {{transform: 'scale(2vw)'}}>
+        style = {{scale: scaleVal, marginRight: cardSpace, marginLeft: cardSpace}}>
           {CardSVG && <CardSVG />}
       </motion.div>
     );
