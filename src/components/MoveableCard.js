@@ -53,15 +53,25 @@ export default function MoveableCard(props) {
 
   // Responsive Implementation: TODO: implement
   const [scaleVal, setScaleVal] = useState(0.72);
-  const [sideMargin, setSideMargin] = useState(-15);
+  const [sideMargin, setSideMargin] = useState(-30);
   const [bottomMargin, setBottomMargin] = useState(0);
 
   // Updating scale for different screensizes
   const updateScale = () => {
+
+    // Scaling the cards themselves
     const vw = window.innerWidth;
-    const scalingFactor = vw / 13; // 234 is the original card width
-    setScaleVal(scalingFactor / 234);
-    setSideMargin(scalingFactor / (-15));
+    setScaleVal((0.72 / 2560) * vw);
+
+    // Scaling the space to the right and left of the cards
+    const exponentialFactorMargins = 1.4;
+    const maxMargin = -30; // The initial margin for larger screens
+    const minMargin = -100; // The minimum margin for smaller screens
+
+    let marginScaleFactor = Math.pow((vw / 2560), exponentialFactorMargins);
+    let newSideMargin = minMargin + (maxMargin - minMargin) * marginScaleFactor;
+
+    setSideMargin(newSideMargin);
   };
 
   // Handles when window size changes
