@@ -51,29 +51,17 @@ export default function MoveableCard(props) {
     }
   };
 
-  // Responsive Implementation
+  // Responsive Implementation: TODO: implement
   const [scaleVal, setScaleVal] = useState(0.72);
-  const [sideMargin, setSideMargin] = useState(-30);
+  const [sideMargin, setSideMargin] = useState(-15);
   const [bottomMargin, setBottomMargin] = useState(0);
 
   // Updating scale for different screensizes
   const updateScale = () => {
     const vw = window.innerWidth;
-    if (vw <= 1175) {
-      setScaleVal(0.3);
-      setSideMargin(-81); 
-      setBottomMargin(-104);
-    } 
-    else if (vw <= 1666) {
-      setScaleVal(0.5);
-      setSideMargin(-56); 
-      setBottomMargin(-50);
-    }
-    else {
-      setScaleVal(0.72); 
-      setSideMargin(-30);
-      setBottomMargin(0);
-    }
+    const scalingFactor = vw / 13; // 234 is the original card width
+    setScaleVal(scalingFactor / 234);
+    setSideMargin(scalingFactor / (-15));
   };
 
   // Handles when window size changes
