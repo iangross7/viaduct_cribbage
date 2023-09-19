@@ -54,6 +54,7 @@ function App() {
         <PeggingCount gameState={gameState}/>
       </div>
       <div className='lower-hand-container'>
+      <HandContinue onClick={handleContinuePressed} gameState={gameState}/>
       <HumanHand 
           gameState={gameState} 
           onCardPlayed={handleCardPlayedHuman}
@@ -70,7 +71,6 @@ function App() {
       <div className='hand-score-container'>
         <HandScore gameState={gameState}/>
       </div>
-      <HandContinue onClick={handleContinuePressed} gameState={gameState}/>
       <JackCut gameState={gameState}/>
       <SplashScreen />
     </div>

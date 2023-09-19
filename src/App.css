@@ -29,6 +29,9 @@ body {
 
 .lower-hand-container {
   position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   bottom: 0%;
 }
 

@@ -8,6 +8,7 @@ export default function HandContinue(props) {
 
     let visibility = 'inline-block';
     let text = 'Continue';
+    let bMarg = '5%';
 
     if (gameFlowing) visibility = 'none';
     if (gameState.currentState === GameState.PEGGING) {
@@ -19,12 +20,13 @@ export default function HandContinue(props) {
         }
     }
     if (gameState.currentState === GameState.GAMEOVER) text = 'New Game';
+    if (gameState.humanHand.cards.length === 0) bMarg = '14vw';
 
     return (
         <button 
             className='hand-button'
             onClick = {props.onClick}
-            style = {{display: visibility}}
+            style = {{display: visibility, marginBottom: bMarg}}
             >{text}</button>
     );
 }
