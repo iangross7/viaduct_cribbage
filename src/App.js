@@ -51,6 +51,7 @@ function App() {
       </div>
       <div className='cut-container'>
         <CutCard gameState={gameState}/>
+        <PeggingCount gameState={gameState}/>
       </div>
       <div className='lower-hand-container'>
       <HumanHand 
@@ -60,9 +61,6 @@ function App() {
         />
       </div>
       <InformationText gameState={gameState}/>
-      <div className='peg-point-container'>
-        <PeggingCount gameState={gameState}/>
-      </div>
       <div className='human-score-container'>
         <ScoreBoard player='Your' score={gameState.playerScore}/>
       </div>

@@ -33,21 +33,23 @@ body {
 }
 
 .drop-zone {
-  background-color: red;
-  width: 35%;
-  height: 25%;
+  /* background-color: red; */
+  width: 45vw;
+  height: 30vh;
   position: absolute;
-  top: 40%;
-  left: 32.2%;
+  display: flex;
+  align-items: center;
+  top: 33%;
 }
 
 .cut-container {
   /* background-color: #494b4d; */
   position: absolute;
-  width: 10%;
-  height: 25%;
-  top: 27.2%;
-  left: 6%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  top: 36%;
+  left: 7.5%;
 }
 
 .human-score-container {
