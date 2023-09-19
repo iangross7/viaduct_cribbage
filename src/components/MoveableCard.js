@@ -64,9 +64,9 @@ export default function MoveableCard(props) {
     setScaleVal((0.72 / 2560) * vw);
 
     // Scaling the space to the right and left of the cards
-    const exponentialFactorMargins = 1.4;
+    const exponentialFactorMargins = 0.935;
     const maxMargin = -30; // The initial margin for larger screens (2560)
-    const minMargin = -100; // The minimum margin for smaller screens
+    const minMargin = -120; // The minimum margin for smaller screens
 
     let marginScaleFactor = Math.pow((vw / 2560), exponentialFactorMargins);
     let newSideMargin = minMargin + (maxMargin - minMargin) * marginScaleFactor;
@@ -74,10 +74,11 @@ export default function MoveableCard(props) {
     setSideMargin(newSideMargin);
 
     // Scaling the space to the top and bottom of the cards
+    const exponentialFactorTop = 1.4;
     const maxBottomMargin = 0; // The initial margin for larger screens
     const minBottomMargin = -150; // The minimum margin for smaller screens
 
-    let bottomMarginScaleFactor = Math.pow((vw / 2560), exponentialFactorMargins);
+    let bottomMarginScaleFactor = Math.pow((vw / 2560), exponentialFactorTop);
     let newBottomMargin = minBottomMargin + (maxBottomMargin - minBottomMargin) * bottomMarginScaleFactor;
 
     setSideMargin(newSideMargin);
