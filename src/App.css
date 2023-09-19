@@ -37,7 +37,7 @@ body {
 
 .drop-zone {
   /* background-color: red; */
-  width: 45vw;
+  width: 55vw;
   height: 30vh;
   position: absolute;
   display: flex;
