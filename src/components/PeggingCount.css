@@ -3,8 +3,9 @@
     background-color: white;
     color: black;
     position: absolute;
-    width: 9.2%;
-    height: 9rem;
+    display: flex;
+    align-items: center;
+    padding: 0.5% 1%;
     top: 40%; 
     left: 22%;
 }
