@@ -1,10 +1,8 @@
 .information-text {
     color: white;
+    white-space: nowrap;
+    display: flex;
     text-align: center;
-    font-size: 1vw;
-    position: absolute;
-    width: 45%;
-    height: 8%;
-    top: 30%;
-    left: 27.5%;
+    font-size: 1.2vw;
+    margin-top: 13%;
 }
