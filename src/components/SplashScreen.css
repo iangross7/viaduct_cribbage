@@ -11,6 +11,7 @@
 }
 
 .start-screen-container {
+    position: absolute;
     background-color: #19191a;
     height: 100vh;
     width: 100vw;
