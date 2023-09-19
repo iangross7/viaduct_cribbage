@@ -11,6 +11,7 @@ export default function MoveableCard(props) {
   const canMove = props.canMove === 'true';
   const CardSVG = cardSVGs[cardDisplay] || null;
 
+  // Handler for dragging of cards
   const handleDragEnd = (event) => {
     const dropZoneRect = dropZoneRef.current.getBoundingClientRect(); // Get drop zone's bounding rectangle
     const cardRect = event.target.getBoundingClientRect(); // Get card's bounding rectangle
@@ -45,45 +46,56 @@ export default function MoveableCard(props) {
     // Thresh for furtherest card can be from DZ (needed for bug issues)
     const distanceThreshold = 250;
 
+    // If the card falls within the dropZone, activate card played sequence
     if (percentageInsideDropZone >= percentageThreshold && distance <= distanceThreshold) {
       // Trigger the action to play the card
       props.onCardPlayed(cardID);
     }
   };
 
-  // Responsive Implementation: TODO: implement
-  const [scaleVal, setScaleVal] = useState(0.72);
-  const [sideMargin, setSideMargin] = useState(-30);
-  const [bottomMargin, setBottomMargin] = useState(0);
+  // Functions for responsive scaling, updated @78
+  const findSideScale = () => {
+    // Scaling the space to the right and left of the cards
+    const vw = window.innerWidth;
+    const exponentialFactorMargins = 0.935; // Exponent for screen growth
+    const maxMargin = -30; // The initial margin for larger screens (2560px)
+    const minMargin = -120; // The minimum margin for smaller screens
 
-  // Updating scale for different screensizes
+    let marginScaleFactor = Math.pow((vw / 2560), exponentialFactorMargins);
+    return minMargin + (maxMargin - minMargin) * marginScaleFactor; // Difference in min from max times factor
+  }
+
+  // Functions for responsive scaling, updated @78
+  const findTopScale = () => {
+    // Scaling the space to the top and bottom of the cards
+    const vw = window.innerWidth;
+    const exponentialFactorTop = 1.4;
+    const maxBottomMargin = 0; // The initial margin for larger screens (2560px)
+    const minBottomMargin = -150; // The minimum margin for smaller screens
+
+    let bottomMarginScaleFactor = Math.pow((vw / 2560), exponentialFactorTop); 
+    return minBottomMargin + (maxBottomMargin - minBottomMargin) * bottomMarginScaleFactor; // Difference in min from max times factor
+  }
+
+  // Responsive Implementation. Setting what they should be upon first render: 
+  const vw = window.innerWidth;
+  const [scaleVal, setScaleVal] = useState((0.72 / 2560) * vw);
+
+  const [sideMargin, setSideMargin] = useState(findSideScale());
+  const [bottomMargin, setBottomMargin] = useState(findTopScale());
+
+  // Updating scale for different screensizes, dynamically
   const updateScale = () => {
 
     // Scaling the cards themselves
     const vw = window.innerWidth;
     setScaleVal((0.72 / 2560) * vw);
 
-    // Scaling the space to the right and left of the cards
-    const exponentialFactorMargins = 0.935;
-    const maxMargin = -30; // The initial margin for larger screens (2560)
-    const minMargin = -120; // The minimum margin for smaller screens
+    // Sets side margins to value computed from function
+    setSideMargin(findSideScale());
 
-    let marginScaleFactor = Math.pow((vw / 2560), exponentialFactorMargins);
-    let newSideMargin = minMargin + (maxMargin - minMargin) * marginScaleFactor;
-
-    setSideMargin(newSideMargin);
-
-    // Scaling the space to the top and bottom of the cards
-    const exponentialFactorTop = 1.4;
-    const maxBottomMargin = 0; // The initial margin for larger screens
-    const minBottomMargin = -150; // The minimum margin for smaller screens
-
-    let bottomMarginScaleFactor = Math.pow((vw / 2560), exponentialFactorTop);
-    let newBottomMargin = minBottomMargin + (maxBottomMargin - minBottomMargin) * bottomMarginScaleFactor;
-
-    setSideMargin(newSideMargin);
-    setBottomMargin(newBottomMargin);
-
+    // Sets top/bottom margins to value computed from function
+    setBottomMargin(findTopScale());
   };
 
   // Handles when window size changes
