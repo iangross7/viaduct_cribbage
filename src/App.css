@@ -25,15 +25,11 @@ body {
 
 .upper-hand-container {
   position: absolute;
-  width: 50%;
-  height: 32%;
 }
 
 .lower-hand-container {
   position: absolute;
-  width: 50%;
-  height: 31%;
-  top: 69%;
+  bottom: 0%;
 }
 
 .drop-zone {

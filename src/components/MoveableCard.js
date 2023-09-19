@@ -53,22 +53,26 @@ export default function MoveableCard(props) {
 
   // Responsive Implementation
   const [scaleVal, setScaleVal] = useState(0.72);
-  const [cardSpace, setCardSpace] = useState(-30);
+  const [sideMargin, setSideMargin] = useState(-30);
+  const [bottomMargin, setBottomMargin] = useState(0);
 
   // Updating scale for different screensizes
   const updateScale = () => {
     const vw = window.innerWidth;
     if (vw <= 1175) {
       setScaleVal(0.3);
-      setCardSpace(-81); 
+      setSideMargin(-81); 
+      setBottomMargin(-104);
     } 
     else if (vw <= 1666) {
       setScaleVal(0.5);
-      setCardSpace(-56); 
+      setSideMargin(-56); 
+      setBottomMargin(-50);
     }
     else {
       setScaleVal(0.72); 
-      setCardSpace(-30);
+      setSideMargin(-30);
+      setBottomMargin(0);
     }
   };
 
@@ -86,7 +90,7 @@ export default function MoveableCard(props) {
         drag={canMove} 
         dragSnapToOrigin="true" // Returns card to original position
         onDragEnd={handleDragEnd} // Handler for when the drag completes
-        style = {{scale: scaleVal, marginRight: cardSpace, marginLeft: cardSpace}}>
+        style = {{scale: scaleVal, marginRight: sideMargin, marginLeft: sideMargin, marginBottom: bottomMargin, marginTop: bottomMargin}}>
           {CardSVG && <CardSVG />}
       </motion.div>
     );
