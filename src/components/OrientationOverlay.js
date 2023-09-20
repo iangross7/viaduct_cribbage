@@ -2,22 +2,25 @@ import React, { useEffect, useState } from 'react';
 import './OrientationOverlay.css'; 
 
 export default function OrientationOverlay() {
-  const [isPortrait, setIsPortrait] = useState(false);
-
-  useEffect(() => {
-    function checkScreenOrientation() {
-        setIsPortrait(window.innerHeight > window.innerWidth);
-    }
-
-    window.addEventListener('load', checkScreenOrientation);
-    window.addEventListener('orientationchange', checkScreenOrientation);
-
-    // Clean up event listeners on unmount
-    return () => {
-      window.removeEventListener('load', checkScreenOrientation);
-      window.addEventListener('resize', checkScreenOrientation);
-    };
-  }, []);
+    const [isPortrait, setIsPortrait] = useState(
+        window.matchMedia('(orientation: portrait)').matches
+    );
+    
+    useEffect(() => {
+        // Function to handle orientation change
+        function checkOrientation(event) {
+          setIsPortrait(event.matches);
+        }
+    
+        // Add event listener for orientation change
+        const orientationListener = window.matchMedia('(orientation: portrait)');
+        orientationListener.addListener(checkOrientation);
+    
+        // Clean up event listener on unmount
+        return () => {
+          orientationListener.removeListener(checkOrientation);
+        };
+    }, []);
 
   return (
     <div className={`orientation-overlay ${isPortrait ? 'show' : 'hide'}`}>
