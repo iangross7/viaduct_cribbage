@@ -10,6 +10,8 @@
     border-radius: 6px;
     border: 2px solid white;
     background-color: white;
+
+    transition-property: color, background-color, transform;
     transition-duration: 0.4s;
     color: black;
 }

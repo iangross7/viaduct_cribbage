@@ -20,7 +20,7 @@ export default function HandContinue(props) {
         }
     }
     if (gameState.currentState === GameState.GAMEOVER) text = 'New Game';
-    if (gameState.humanHand.cards.length === 0) bMarg = '14vw';
+    if (gameState.humanHand.cards.length === 0) bMarg = '14.58vw';
 
     return (
         <button 
