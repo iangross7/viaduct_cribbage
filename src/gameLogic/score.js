@@ -1,7 +1,5 @@
-// TODO: add knobs
-
 export default class Score {
-    // use for four or five cards
+    // use for four or five cards (does not factor in knobs)
     static handScore(hand) {
         let points = 0;
 

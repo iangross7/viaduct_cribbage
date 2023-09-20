@@ -93,6 +93,7 @@ export default class GameState {
                 let playedCard = this.humanHand.fullPlayCard(cardID);
                 if (this.cribHand.cards.length < 2) this.cribHand.addCard(playedCard);
                 this.peggingHand.addCard(playedCard);
+                // Once two cards have been played, the bot puts its two best cards in the crib
                 if (this.cribHand.cards.length === 2) {
                     const discardCards = Bot.botCribDiscard(this.aiHand);
                     discardCards.forEach(element => {
@@ -128,6 +129,7 @@ export default class GameState {
                     else {
                         if (!this.canHumanPeg()) this.gameFlowing = false;
                     }
+                    // You'll see these throughout, just checking if game is over from scoring
                     if (this.currentState === GameState.GAMEOVER) this.gameFlowing = false;
                 }
             }
@@ -166,6 +168,7 @@ export default class GameState {
             if (this.goStop) {
                 this.increaseAIScore(1);
                 this.goStop = false;
+                // However, if the human has no more cards the bot shall peg (bug caught)
                 if (!(this.canHumanPeg())) {
                     while (this.canBotPeg()) {
                         this.botPeg();
@@ -180,6 +183,7 @@ export default class GameState {
             else {
                 this.increasePlayerScore(1);
                 this.botPeg(); // i think this gets null caught @botPeg()
+                // And, again, if the human can't play the bot shall play while it can
                 if (!this.canHumanPeg()) {
                     while (this.canBotPeg()) {
                         this.botPeg();
