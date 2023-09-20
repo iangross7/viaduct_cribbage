@@ -4,7 +4,7 @@ import './OrientationOverlay.css';
 export default function OrientationOverlay() {
     const [isPortrait, setIsPortrait] = useState(
         window.matchMedia('(orientation: portrait)').matches
-    );
+      );
     
     useEffect(() => {
         // Function to handle orientation change
@@ -23,7 +23,7 @@ export default function OrientationOverlay() {
     }, []);
 
   return (
-    <div className={`orientation-overlay ${isPortrait ? 'show' : 'hide'}`}>
+    <div className={`orientation-overlay ${isPortrait ? 'show' : 'hide'}`} style={{ display: isPortrait ? 'flex' : 'none' }}>
       <p>Please rotate your device to landscape mode to play the game.</p>
     </div>
   );
