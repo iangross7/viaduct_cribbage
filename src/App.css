@@ -4,8 +4,8 @@
 }
 
 @font-face {
-  font-family: "Roboto";
-  src: url(./fonts/Roboto-Regular.woff2);
+  font-family: "Barlow";
+  src: url(./fonts/Barlow-Medium.woff2) format('woff2');
 }
 
 body {
@@ -74,7 +74,7 @@ body {
 }
 
 p {
-  font-family: "Roboto", sans-serif;
+  font-family: "Barlow", sans-serif;
 }
 
 h2 {

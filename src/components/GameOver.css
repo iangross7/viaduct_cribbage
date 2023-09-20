@@ -5,24 +5,24 @@
 
 .game-over {
     position: absolute;
+    display: flex;
     background-color: #19191a;
     color: white;
     width: 50%;
     height: 40%;
     top: 30%;
-    left: 25%
+    left: 25%;
+    text-align: center;
 }
 
 .over-header {
-    text-align: center;
-    font-size: 400%;
-    margin-top: 8%;
-    margin-bottom: 1%
+    font-size: 7vw;
+    margin-top: 2%;
+    margin-bottom: 5%
 }
 
 .over-body {
-    text-align: center;
-    font-size: 150%;
+    font-size: 2.2vw;
     margin-top: -5%;
     font-family: "Oswald", sans-serif;
 }
