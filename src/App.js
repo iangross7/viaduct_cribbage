@@ -73,7 +73,7 @@ function App() {
         <HandScore gameState={gameState}/>
       </div>
       <JackCut gameState={gameState}/>
-      <OrientationOverlay />
+      {/* <OrientationOverlay /> */}
       <SplashScreen />
     </div>
   ); 
