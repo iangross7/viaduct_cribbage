@@ -5,4 +5,9 @@
     text-align: center;
     font-size: 1.2vw;
     margin-top: 13%;
+
+    /* Fixing text for a phone */
+    @media (max-width: 768px) {
+        margin-top: 11.2%;
+      }
 }

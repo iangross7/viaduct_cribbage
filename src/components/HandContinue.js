@@ -20,7 +20,12 @@ export default function HandContinue(props) {
         }
     }
     if (gameState.currentState === GameState.GAMEOVER) text = 'New Game';
-    if (gameState.humanHand.cards.length === 0) bMarg = '14.58vw';
+    if (window.innerWidth <= 768) {
+        bMarg = gameState.humanHand.cards.length === 0 ? '12vw' : '-5%';
+    }
+    else {
+        bMarg = gameState.humanHand.cards.length === 0 ? '14.58vw' : '5%';
+    }
 
     return (
         <button 
