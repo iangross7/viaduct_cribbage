@@ -166,6 +166,15 @@ export default class GameState {
             if (this.goStop) {
                 this.increaseAIScore(1);
                 this.goStop = false;
+                if (!(this.canHumanPeg())) {
+                    while (this.canBotPeg()) {
+                        this.botPeg();
+                    }
+                    if (!(this.canHumanPeg()) && !(this.canBotPeg())) {
+                        this.goStop = true;
+                        this.gameFlowing = false;
+                    }
+                }
             } 
             // Otherwise, a go for the human and the bot shall play next
             else {
