@@ -382,8 +382,11 @@ export default class GameState {
         }
     }
 
-    // Returns the header when game is over
+    // Returns the header when game is over. Also clears the hands for better UI display.
     generateGameOverHeader() {
+        this.aiHand.clearHand();
+        this.humanHand.clearHand();
+
         if (this.aiScore >= this.playerScore) return "AI Wins!";
         else return "You Win!";
     }
