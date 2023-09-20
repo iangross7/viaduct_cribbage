@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+# Viaduct Cribbage
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The app is finally live! Go play it at [https://viaduct-cribbage.netlify.app/](https://viaduct-cribbage.netlify.app/)
 
-## Available Scripts
+*If playing on mobile, make sure to play horizontally!*
 
-In the project directory, you can run:
+## Brief
+Cribbage is a game very near and dear to my heart. It was taught to me by my grandfather at a young age and is essentially my family's tradition at this point. I wanted to put my coding skills to the test and create a fully playable, in-browser cribbage experience. 
+So I did just that, and thus *Viaduct Cribbage* was born.
 
-### `npm start`
+## Project Details
+This app was created from essentially the ground up, using React Native and Framer-Motion as my only foundation. All game logic, components, and everything else inbetween was coded from scratch by me. It took just about ~1900 lines of code to complete and I lost track of the hours spent at this point. The only outside help was lies in beautiful, royalty-free library of playing card SVGs I found, which are credited below. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Built With
+- React
+- Node.js
+- [Framer Motion](https://www.framer.com/motion/)
+- HTML/CSS/JS
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Credits
+- Card SVGs are from [Tek Eye](https://tekeye.uk/playing_cards/svg-playing-cards)
