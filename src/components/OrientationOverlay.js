@@ -10,6 +10,10 @@ export default function OrientationOverlay() {
         // Function to handle orientation change
         function checkOrientation(event) {
           setIsPortrait(event.matches);
+          window.scrollTo({
+            top: 0,
+            behavior: 'auto',
+          });
         }
     
         // Add event listener for orientation change
