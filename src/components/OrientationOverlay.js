@@ -6,8 +6,7 @@ export default function OrientationOverlay() {
 
   useEffect(() => {
     function checkScreenOrientation() {
-      const currentOrientation = window.screen.orientation.type;
-      setIsPortrait(currentOrientation.includes('portrait'));
+        setIsPortrait(window.innerHeight > window.innerWidth);
     }
 
     window.addEventListener('load', checkScreenOrientation);
@@ -16,7 +15,7 @@ export default function OrientationOverlay() {
     // Clean up event listeners on unmount
     return () => {
       window.removeEventListener('load', checkScreenOrientation);
-      window.removeEventListener('orientationchange', checkScreenOrientation);
+      window.addEventListener('resize', checkScreenOrientation);
     };
   }, []);
 
