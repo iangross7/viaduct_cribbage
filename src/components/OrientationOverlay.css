@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Victor";
+    src: url(../fonts/VictorMono-Regular.woff2) format('woff2');
+}
+
 .orientation-overlay {
     position: fixed;
     top: 0;
@@ -9,9 +14,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Ensure it appears above other content */
+    z-index: 99;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+  }
+
+  .orientation-overlay p {
+    font-family: "Victor", sans-serif;
+    font-size: 2.5vw;
   }
 
   .show {

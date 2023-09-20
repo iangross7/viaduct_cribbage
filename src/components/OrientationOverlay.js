@@ -22,7 +22,7 @@ export default function OrientationOverlay() {
 
   return (
     <div className={`orientation-overlay ${isPortrait ? 'show' : 'hide'}`}>
-      <p style={{fontSize: '3vw'}}>Please rotate your device to landscape mode to play the game.</p>
+      <p>Please rotate your device to landscape mode to play the game.</p>
     </div>
   );
 }
