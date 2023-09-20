@@ -2,7 +2,7 @@
 
 The app is finally live! Go play it at [https://viaduct-cribbage.netlify.app/](https://viaduct-cribbage.netlify.app/)
 
-*If playing on mobile, make sure to play horizontally!*
+*Now playable on mobile!*
 
 ## Brief
 Cribbage is a game very near and dear to my heart. It was taught to me by my grandfather at a young age and is essentially my family's tradition at this point. I wanted to put my coding skills to the test and create a fully playable, in-browser cribbage experience. 
