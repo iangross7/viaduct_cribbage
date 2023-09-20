@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import cardSVGs from './cardSVGs.js';
 
 export default function MoveableCard(props) {
@@ -54,7 +54,7 @@ export default function MoveableCard(props) {
   };
 
   // Functions for responsive scaling, updated @78
-  const findSideScale = () => {
+  const findSideScale = useCallback(() => {
     // Scaling the space to the right and left of the cards
     const vw = window.innerWidth;
     const exponentialFactorMargins = 0.935; // Exponent for screen growth
@@ -63,10 +63,10 @@ export default function MoveableCard(props) {
 
     let marginScaleFactor = Math.pow((vw / 2560), exponentialFactorMargins);
     return minMargin + (maxMargin - minMargin) * marginScaleFactor; // Difference in min from max times factor
-  }
+  }, []);
 
   // Functions for responsive scaling, updated @78
-  const findTopScale = () => {
+  const findTopScale = useCallback(() => {
     // Scaling the space to the top and bottom of the cards
     const vw = window.innerWidth;
     const exponentialFactorTop = 1.4;
@@ -75,7 +75,7 @@ export default function MoveableCard(props) {
 
     let bottomMarginScaleFactor = Math.pow((vw / 2560), exponentialFactorTop); 
     return minBottomMargin + (maxBottomMargin - minBottomMargin) * bottomMarginScaleFactor; // Difference in min from max times factor
-  }
+  }, []);
 
   // Responsive Implementation. Setting what they should be upon first render: 
   const vw = window.innerWidth;
@@ -85,7 +85,7 @@ export default function MoveableCard(props) {
   const [bottomMargin, setBottomMargin] = useState(findTopScale());
 
   // Updating scale for different screensizes, dynamically
-  const updateScale = () => {
+  const updateScale = useCallback(() => {
 
     // Scaling the cards themselves
     const vw = window.innerWidth;
@@ -96,7 +96,7 @@ export default function MoveableCard(props) {
 
     // Sets top/bottom margins to value computed from function
     setBottomMargin(findTopScale());
-  };
+  }, [findSideScale, findTopScale]);
 
   // Handles when window size changes
   useEffect(() => {
@@ -105,7 +105,7 @@ export default function MoveableCard(props) {
     return () => {
       window.removeEventListener('resize', updateScale);
     };
-  }, []);
+  }, [updateScale]);
 
   return (
       <motion.div 
