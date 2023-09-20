@@ -17,6 +17,7 @@ import HandScore from './components/HandScore.js';
 import GameOver from './components/GameOver.js';
 
 import SplashScreen from './components/SplashScreen.js';
+import OrientationOverlay from './components/OrientationOverlay.js';
 
 import GameState from "./gameLogic/gameState.js";
 
@@ -72,6 +73,7 @@ function App() {
         <HandScore gameState={gameState}/>
       </div>
       <JackCut gameState={gameState}/>
+      <OrientationOverlay />
       <SplashScreen />
     </div>
   ); 
