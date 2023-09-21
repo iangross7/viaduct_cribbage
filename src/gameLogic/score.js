@@ -52,6 +52,7 @@ export default class Score {
         });
 
         let runCount = 0;
+        let runArray = []; // used for authenticating duplicates later
 
         // Seeing the size of the run, without finding duplicates yet
         for (let i = 0; i < uniqueHand.length - 1 ; i++) {
@@ -64,6 +65,10 @@ export default class Score {
 
             if (currCount >= 3) {
                 runCount = currCount;
+                // Adding every card in the run sequence to the runArray
+                for (let j = i; j < i + currCount; j++) {
+                    runArray.push(uniqueHand[j]);
+                }
                 break;
             }
         }
@@ -78,12 +83,15 @@ export default class Score {
         // Double double results in 4 times the run size, single double results in 2 times, 3kind is 3 times
         for (let i = 0; i < sortedHand.length - 1; i++) {
             if (sortedHand[i] === sortedHand[i + 1]) {
-                if (i < sortedHand.length - 2 && sortedHand[i] === sortedHand[i + 2]) {
-                    dupeFactor = 3; 
-                    break;
+                // If the duplicate is actually within the run sequence
+                if (runArray.includes(sortedHand[i])) {
+                    if (i < sortedHand.length - 2 && sortedHand[i] === sortedHand[i + 2]) {
+                        dupeFactor = 3; 
+                        break;
+                    }
+                    dupeArray.push(sortedHand[i]);
+                    dupeArray.push(sortedHand[i + 1]);
                 }
-                dupeArray.push(sortedHand[i]);
-                dupeArray.push(sortedHand[i + 1]);
             }
         }
 
