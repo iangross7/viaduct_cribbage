@@ -22,6 +22,7 @@ import OrientationOverlay from './components/OrientationOverlay.js';
 import GameState from "./gameLogic/gameState.js";
 
 import './App.css';
+import BackButton from './components/BackButton.js';
 
 function App() {
   const[gameState, setGameState] = useState(new GameState());
@@ -41,6 +42,12 @@ function App() {
     setGameState(updatedGameState);
   }
 
+  const handleBackPressed = () => {
+    const updatedGameState = new GameState({...gameState});
+    updatedGameState.back();
+    setGameState(updatedGameState);
+  }
+
   return (
     <div className='app-container'>
       <div className='drop-zone' ref={dropZoneRef}>
@@ -55,12 +62,15 @@ function App() {
         <PeggingCount gameState={gameState}/>
       </div>
       <div className='lower-hand-container'>
-      <HandContinue onClick={handleContinuePressed} gameState={gameState}/>
-      <HumanHand 
-          gameState={gameState} 
-          onCardPlayed={handleCardPlayedHuman}
-          dropZone={dropZoneRef}
-        />
+        <div className='buttons'>
+        <HandContinue onClick={handleContinuePressed} gameState={gameState}/>
+        <BackButton onClick={handleBackPressed} gameState={gameState}/>
+        </div>
+        <HumanHand 
+            gameState={gameState} 
+            onCardPlayed={handleCardPlayedHuman}
+            dropZone={dropZoneRef}
+          />
       </div>
       <InformationText gameState={gameState}/>
       <div className='human-score-container'>

@@ -87,18 +87,13 @@ export default class GameState {
     humanPlayCard(cardID) {
         // If game is not not at a pause
         if (this.gameFlowing) {
-
             // Cribbing State
             if (this.currentState === GameState.CRIBBING) {
-                let playedCard = this.humanHand.fullPlayCard(cardID);
+                let playedCard = this.humanHand.playCard(cardID);
                 if (this.cribHand.cards.length < 2) this.cribHand.addCard(playedCard);
                 this.peggingHand.addCard(playedCard);
-                // Once two cards have been played, the bot puts its two best cards in the crib
-                if (this.cribHand.cards.length === 2) {
-                    const discardCards = Bot.botCribDiscard(this.aiHand);
-                    discardCards.forEach(element => {
-                        this.cribHand.addCard(this.aiHand.fullPlayCard(element));
-                    });
+                // Once two cards have been played, it's now up to the player to continue / go back
+                if (this.cribHand.cards.length >= 2) {
                     this.gameFlowing = false;
                 }
             }
@@ -136,11 +131,19 @@ export default class GameState {
         }
     }
 
+    // Handles whenever the player presses the continue button
     continue() {
         this.gameFlowing = true; // continues the game
 
         // Crib continue into pegging
         if (this.currentState === GameState.CRIBBING) {
+            this.cribHand.cards.forEach(c => {
+                this.humanHand.removeCard(c.id);
+            });
+            const discardCards = Bot.botCribDiscard(this.aiHand);
+                    discardCards.forEach(element => {
+                        this.cribHand.addCard(this.aiHand.fullPlayCard(element));
+                    }); 
             this.peggingHand.clearHand();
             this.currentState = GameState.PEGGING;
             this.cut();
@@ -271,6 +274,19 @@ export default class GameState {
             if (this.playerScore > this.aiScore) this.humanCrib = false;
             else this.humanCrib = true; // loser gets crib on next start of game
             this.startGame();
+        }
+    }
+
+    // Handles when the human hits the back button
+    back() {
+        // Resets the human hand to its saved cards & clears the peggingHand (middle of screen visual)
+        // Spread operator is important so that arrays don't reference same instance !!
+        if (this.currentState === GameState.CRIBBING) {
+            this.humanHand.cards = [...this.humanHand.cardsHidden];
+            this.peggingHand.clearHand();
+            // Wipes the crib hand because it's now empty
+            this.cribHand.clearHand();
+            this.gameFlowing = true;
         }
     }
 
