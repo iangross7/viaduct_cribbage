@@ -26,6 +26,7 @@ export default function HandContinue(props) {
     }
     else {
         bMarg = gameState.humanHand.cards.length === 0 ? '14.58vw' : '5%';
+        if (gameState.currentState === GameState.GAMEOVER) bMarg = '16vh';
     }
 
     return (
