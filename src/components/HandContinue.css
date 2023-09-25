@@ -3,25 +3,31 @@
     src: url(../fonts/Oswald-Regular.woff2) format('woff2');
   }
 
-.hand-button {
+.hand-button, .back-button {
+    position: relative;
+    white-space: nowrap;
     font-family: "Oswald", sans-serif;
     font-size: 1.5vw;
     padding: 0.4vw 4vw;
     border-radius: 6px;
     border: 2px solid white;
     background-color: white;
-
+    margin-right: 4%;
     transition-property: color, background-color, transform;
     transition-duration: 0.4s;
     color: black;
 }
 
-.hand-button:hover {
+.back-button {
+    padding: 0.4vw 5vw
+}
+
+.hand-button:hover, .back-button:hover {
     background-color: transparent;
     color:white;
 }
 
-.hand-button:active {
+.hand-button:active, .back-button:active {
     transition-duration: 0.1s;
     transform: scale(0.9);
 }

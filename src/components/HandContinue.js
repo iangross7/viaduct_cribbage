@@ -9,6 +9,7 @@ export default function HandContinue(props) {
     let visibility = 'inline-block';
     let text = 'Continue';
     let bMarg = '5%';
+    let rVal = '0%'
 
     if (gameFlowing) visibility = 'none';
     if (gameState.currentState === GameState.PEGGING) {
@@ -22,18 +23,22 @@ export default function HandContinue(props) {
     if (gameState.currentState === GameState.GAMEOVER) text = 'New Game';
     if (window.innerWidth <= 768) {
         bMarg = gameState.humanHand.cards.length === 0 ? '12vw' : '-3%';
-        if (gameState.currentState === GameState.GAMEOVER) bMarg = '30%';
+        if (gameState.currentState === GameState.GAMEOVER) bMarg = '30%'; //TODO: FIX MOBILE (VH)
     }
     else {
         bMarg = gameState.humanHand.cards.length === 0 ? '14.58vw' : '5%';
         if (gameState.currentState === GameState.GAMEOVER) bMarg = '16vh';
     }
 
+    if (gameState.currentState === GameState.CRIBBING && gameState.peggingHand.cards.length === 2) {
+        rVal = '2.6%';
+    }
+
     return (
         <button 
             className='hand-button'
             onClick = {props.onClick}
-            style = {{display: visibility, marginBottom: bMarg}}
+            style = {{display: visibility, marginBottom: bMarg, right: rVal}}
             >{text}</button>
     );
 }
