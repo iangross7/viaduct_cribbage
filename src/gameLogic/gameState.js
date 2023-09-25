@@ -106,6 +106,11 @@ export default class GameState {
                     this.increasePlayerScore(Peg.pegPoints(playedCard, this.peggingHand, this.pegScore))
                     this.peggingHand.addCard(playedCard);
                     this.pegScore += playedCard.value;  
+                    // You'll see these throughout, just checking if game is over from scoring
+                    if (this.currentState === GameState.GAMEOVER) {
+                        this.gameFlowing = false;
+                        return; // special case where human wins on peg and bot could theoretically peg over
+                    }
 
                     // If the bot can peg back, it shall
                     if (this.canBotPeg()) {
