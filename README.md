@@ -17,5 +17,8 @@ This app was created from essentially the ground up, using React Native and Fram
 - [Framer Motion](https://www.framer.com/motion/)
 - HTML/CSS/JS
 
+## Coming Soon
+- Leaderboards
+
 ## Credits
 - Card SVGs are from [Tek Eye](https://tekeye.uk/playing_cards/svg-playing-cards)
