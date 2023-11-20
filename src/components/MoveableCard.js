@@ -53,6 +53,13 @@ export default function MoveableCard(props) {
     }
   };
 
+  // Plays card (assuming draggable) when double clicked
+  const handleDoubleClick = () => {
+    if (canMove) {
+      props.onCardPlayed(cardID);
+    }
+  };
+
   // Functions for responsive scaling, updated @78
   const findSideScale = useCallback(() => {
     // Scaling the space to the right and left of the cards
@@ -112,6 +119,7 @@ export default function MoveableCard(props) {
         drag={canMove} 
         dragSnapToOrigin="true" // Returns card to original position
         onDragEnd={handleDragEnd} // Handler for when the drag completes
+        onDoubleClick={handleDoubleClick} // Handler for double click
         style = {{scale: scaleVal, marginRight: sideMargin, marginLeft: sideMargin, marginBottom: bottomMargin, marginTop: bottomMargin}}>
           {CardSVG && <CardSVG />}
       </motion.div>
